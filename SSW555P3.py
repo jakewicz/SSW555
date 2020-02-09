@@ -12,7 +12,8 @@ data = open("proj02test.ged")
 
 goodTags0 = ["INDI"]
 goodTags1 = ["NAME"]
-
+goodTags2 = ["FAM"]
+goodTags3 = ["HUSB", "WIFE"]
 individual = {
     "id":{},
     "name":{}
@@ -45,14 +46,34 @@ for line in data:
     if uuid in str(goodTags1) and int(level) == 1:
         individual.update({"name": name})
 
+    if tag2 in str(goodTags2) and int(level) ==0:
+        family.update({"id":uuid})
+    if uuid in str(goodTags3) and int(level) == 1:
+        family.update({"name": name})
 
-for val in individual.items():
-    indTable.add_row()
-    print(individual["id"])
-    print(individual["name"])
+
+
+print("INDIVIDUALS")
+print("_______________")
+for id, name in individual.items():
+    print ('{} | {}'.format(id, name))
+
+print("")
+print("FAMILY")
+print("_______________")
+for id, name in family.items():
+    print('{} | {}'.format(id, name))
+
+
+
+
+
+    #indTable.add_row()
+    #print(individual["id"])
+    #print(individual["name"])
 #for line in family:
 #    famTable.add_row([line])
-indTable.sortby = "Unique Identifier"
-famTable.sortby = "Unique Identifier"
-print(famTable)
-print(indTable)
+#indTable.sortby = "Unique Identifier"
+#famTable.sortby = "Unique Identifier"
+#print(famTable)
+#print(indTable)
