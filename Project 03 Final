@@ -1,0 +1,67 @@
+#Jacob Senkewicz
+#Project 03 SSW 555
+
+from prettytable import PrettyTable
+
+indTable = PrettyTable()
+indTable.field_names = ["Unique Identifier", "Name"]
+famTable = PrettyTable()
+famTable.field_names = ["Unique Family Identifier", "Unique Identifier", "Name"]
+data = open("project01.ged")
+#print(data.read())   #used as a test to see if the file is read properly
+
+goodTags0 = ["INDI"]
+goodTags1 = ["NAME"]
+goodTags2 = ["FAM"]
+goodTags3 = ["HUSB", "WIFE"]
+
+individual = {}
+currentID = ""
+family = {}
+currentFamID = ""
+currentFamName = ""
+for line in data:
+    line = line.strip()
+    parse = line.split(' ')
+    level = parse[0]
+    parse2 = parse[1]
+    try:
+        tag2 = parse[2]
+    except:
+        continue
+
+    #indTable.add_row([level, tag])
+    #famTable.add_row([level, tag])
+
+    arg1 = line.replace(level, '', 1)
+    arg2 = arg1.replace(parse2, '', 1)
+    name = arg2.strip() #need this otherwise there is a large gap
+    arg3 = name.replace(tag2, '', 1)
+
+    if tag2 in str(goodTags0) and int(level) == 0:
+        currentID = parse2
+    if parse2 in str(goodTags1) and int(level) == 1:
+        if currentID != "":
+            individual[name] = currentID
+            currentID = ""
+
+    if tag2 in str(goodTags2) and int(level) == 0:
+        currentFamID = parse2
+    if parse2 in str(goodTags3) and int(level) == 1:
+        if currentFamID != "":
+            family[name] = currentFamID
+    #if parse2 in str(goodTags1) and int(level) == 1:
+            #family[arg2] = currentFamName
+
+        #currentFamID = ""
+
+
+for k, v in individual.items():
+    indTable.add_row([individual[k], k])
+for k, v in family.items():
+    famTable.add_row([family[k], k, name])
+
+indTable.sortby = "Unique Identifier"
+famTable.sortby = "Unique Family Identifier"
+print(famTable)
+print(indTable)
