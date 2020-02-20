@@ -3,6 +3,7 @@ import java.util.regex.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.time.LocalDateTime;
 
 class Date {
 	int day, month, year;
@@ -12,6 +13,7 @@ class Date {
 	}
 	
 	public Date(String x) {
+		LocalDateTime now = LocalDateTime.now();
 		Pattern p = Pattern.compile("(\\d+) (\\w{3}) (\\d+)");
 		Matcher m = p.matcher(x);
 		String[] months = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
@@ -25,6 +27,31 @@ class Date {
 				if (m.group(2).equals(months[i]))
 					month = i + 1;
 		}
+		
+		//========== US01 ====================================
+		if (year < now.getYear())
+			return;
+		
+		if (year > now.getYear()) {
+			System.out.println("Error: year is in the future");
+			day = -1;
+			return;
+		}
+		
+		if (month > now.getMonthValue()) {
+			System.out.println("Error: month is in the future");
+			day = -1;
+			return;
+		}
+		
+		if (month < now.getMonthValue())
+			return;
+		
+		if (day > now.getDayOfMonth()) {
+			System.out.println("Error: day is in the future");
+			day = -1;
+		}
+		//========================================================
 	}
 	
 	public int getDay() {
@@ -39,10 +66,44 @@ class Date {
 		return year;
 	}
 	
+	public boolean DateIsAfter(Date d) {
+		if (day < 1)
+			return false;
+		
+		if (d.day < 1)
+			return false;
+		
+		if (year < d.year)
+			return true;
+		
+		if (year > d.year)
+			return false;
+		
+		if (month < d.month)
+			return true;
+		
+		if (month > d.month)
+			return false;
+		
+		if (day < d.day)
+			return true;
+
+			return false;
+	}
+	
 	public String toString() {
 		if (day == 0) {
 			return "N/A";
 		}
+		else if (day == -1)
+			return "invalid date: in future";
+		
+		else if (day == -2)
+			return "married before birth";
+		else if (day == -3)
+			return "idied before birth";
+		else if (day == -4)
+			return "married before 14";
 		return year + "-" + month + "-" + day;
 	}
 }
@@ -108,9 +169,9 @@ class Individual {
 	}
 	
 	public int getAge() {
-		//current day set as 2/9/2020
-		int age = 2020 - birthday.getYear();
-		if (birthday.getMonth() >= 2 && birthday.getDay() >= 9)
+		LocalDateTime now = LocalDateTime.now();		
+		int age = now.getYear() - birthday.getYear();
+		if (birthday.getMonth() >= now.getMonthValue() && birthday.getDay() >= now.getDayOfMonth())
 			return age;
 		return age - 1;
 	}
@@ -155,7 +216,7 @@ class Family {
 	public void accept_date(String arg) {
 		if (married_flag) {
 			married = new Date(arg);
-			married_flag = false;
+			married_flag = false;			
 			return;
 		}
 		if (divorce_flag) {
@@ -174,6 +235,11 @@ class Family {
 
 
 public class Project03 {
+	public static String boolToString(boolean b) {
+		if (b)
+			return "true";
+		return "false";
+	}
 	
 	public static int check(String x1, String x2) {
 		String[] labels_0 = {"INDI", "FAM", "HEAD", "TRLR", "NOTE"};
@@ -277,22 +343,80 @@ public class Project03 {
 				}
 			}
 		}
-		//=========================== PRINTING ===============================
-		System.out.println("Individuals");
-		System.out.println("ID\tName\t\tGender\tBirthday\tAge\tAlive\tDeath\t\tChild\tSpouse");
 		
-		for (String x : individuals.keySet())
-			System.out.println(x + "\t" + individuals.get(x).name + "\t" + individuals.get(x).gender + "\t" + individuals.get(x).birthday + "\t" + individuals.get(x).getAge() + "\t" + individuals.get(x).isAlive() + "\t" + individuals.get(x).death + "\t" + individuals.get(x).child_family + "\t" + individuals.get(x).spouse_family);
+		//========= US02 ==================
+		for (String x : families.keySet()) {
+			Date marr = families.get(x).married;
+			Date bornh = individuals.get(families.get(x).husb_id).birthday;
+			Date bornw = individuals.get(families.get(x).wife_id).birthday;
+			
+			if (marr.DateIsAfter(bornh))
+				families.get(x).married.day = -2;
+
+			if (marr.DateIsAfter(bornw))
+				families.get(x).married.day = -2;
+		}
+		
+		for (String x : individuals.keySet()) {
+			//====================== US03 ===========================
+			Date birth = individuals.get(x).birthday;
+			Date death = individuals.get(x).death;
+			if (death.DateIsAfter(birth))
+				individuals.get(x).death.day = -3;
+			
+			//================== US10 ============================
+			if (individuals.get(x).spouse_family != "N/A") {
+				Date marr = families.get(individuals.get(x).spouse_family).married;
+				birth.year += 14;
+				if (marr.DateIsAfter(birth)) {
+					marr.day = -4;
+				}
+			}
+		}
+		
+		//=========================== PRINTING ===============================
+		String[] arr = new String[9];
+		System.out.println("Individuals");
+		//System.out.println("ID\tName\t\tGender\tBirthday\tAge\tAlive\tDeath\t\tChild\tSpouse");
+		String[] indititle = {"ID", "Name", "Gender", "Birthday", "Age", "Alive", "Death", "Child", "Spouse"};
+		System.out.format("%-30s%-30s%-30s%-30s%-30s%-30s%-30s%-30s%-30s\n", indititle);
+		
+		for (String x : individuals.keySet()) {
+			arr[0] = x;
+			arr[1] = individuals.get(x).name;
+			arr[2] = Character.toString(individuals.get(x).gender);
+			arr[3] = individuals.get(x).birthday.toString();
+			arr[4] = Integer.toString(individuals.get(x).getAge());
+			arr[5] = boolToString(individuals.get(x).isAlive());
+			arr[6] = individuals.get(x).death.toString();
+			arr[7] = individuals.get(x).child_family;
+			arr[8] = individuals.get(x).spouse_family;
+			System.out.format("%-30s%-30s%-30s%-30s%-30s%-30s%-30s%-30s%-30s\n", arr);
+			//System.out.println(individuals.get(x).spouse_family);
+		}
 		
 		System.out.println();
 		System.out.println("Families");
-		System.out.println("ID\tMarried\t\tDivorced\tHusband ID\tHusband Name\tWife ID\tWife Name\t\tChildren");
+		String[] famtitle = {"ID", "Married", "Divorced", "Husband ID", "Husband Name", "Wife ID", "Wife Name", "Children"};
+		System.out.format("%-30s%-30s%-30s%-30s%-30s%-30s%-30s%-30s\n", famtitle);
+		//System.out.println("ID\tMarried\t\tDivorced\tHusband ID\tHusband Name\tWife ID\tWife Name\t\tChildren");
 		
 		for (String x : families.keySet()) {
-			System.out.print(x + "\t" + families.get(x).married + "\t" + families.get(x).divorce + "\t\t" + families.get(x).husb_id + "\t\t" + individuals.get(families.get(x).husb_id).name + "\t" + families.get(x).wife_id + "\t" + individuals.get(families.get(x).wife_id).name + "\t");
+			arr[0] = x;
+			arr[1] = families.get(x).married.toString();
+			arr[2] = families.get(x).divorce.toString();
+			arr[3] = families.get(x).husb_id;
+			arr[4] = individuals.get(families.get(x).husb_id).name;
+			arr[5] = families.get(x).wife_id;
+			arr[6] = individuals.get(families.get(x).wife_id).name;
+			
+			System.out.format("%-30s%-30s%-30s%-30s%-30s%-30s%-30s%-30s", arr);
+			
+			//System.out.print(x + "\t" + families.get(x).married + "\t" + families.get(x).divorce + "\t\t" + families.get(x).husb_id + "\t\t" + individuals.get(families.get(x).husb_id).name + "\t" + families.get(x).wife_id + "\t" + individuals.get(families.get(x).wife_id).name + "\t");
 			families.get(x).printChildren();
+			System.out.println();
 		}
-		
+			
 		br.close();
 	}
 
