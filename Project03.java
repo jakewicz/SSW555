@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.regex.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 class Date {
 	int day, month, year;
@@ -198,8 +199,10 @@ public class Project03 {
 	}
 
 	public static void main(String[] args) throws IOException {
-		String filename = args[0];
-		BufferedReader br = new BufferedReader(new FileReader(new File(filename)));
+		Scanner input = new Scanner(System.in);
+		System.out.println("Enter filename: ");
+		String filename = input.nextLine();
+		BufferedReader br = new BufferedReader(new FileReader(new File("src/" + filename)));
 		Pattern p = Pattern.compile("(\\d+)\\s+(\\w+)(?:[\\t ]+(.+))?");
 		Matcher m;
 		HashMap<String, Individual> individuals = new HashMap<>();
