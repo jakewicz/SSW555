@@ -1,12 +1,14 @@
-#gianna jason dan jake
-#project 3 portion that parses lines and prints out each indi and family
+#Gianna Jason Dan Jake
+#Project 3 portion that parses lines and prints out each indi and family
 
 import pprint
+import UsefulFunctions
 
+#Stripping extra lines
 def strip(ged_line):
     return ged_line.strip('\n').split(" ")
 
-
+#Identifying tags, levels and args
 def check(line):
     tags_0 = ["INDI",  "FAM",  "HEAD", "TRLR", "NOTE"]
     tags_1 = ["NAME", "SEX", "BIRT", "DEAT", "FAMC",
@@ -31,7 +33,7 @@ def check(line):
         status = True
     return(status, tag, args)
 
-
+#reads gedcom file, parses it, adds it to dictionaries
 def read_file(path):
     ged = open(path)
     ged_lines = ged.readlines()
@@ -42,6 +44,7 @@ def read_file(path):
     individuals={}
     ind_id = ""
     families={}
+    #Makes individual and family dicts
     for ged_line in ged_lines:
         status, tag, args = check(strip(ged_line))
         if(status == True):
@@ -50,10 +53,10 @@ def read_file(path):
                 individuals[ind_id] = {}
                 individuals[ind_id]["ID"] = args
                 fam_flag = False
-
+            #Gets name and sex
             if(tag == "NAME" or tag == "SEX"):
                 individuals[ind_id][tag] = args
-
+            #gets date 
             if(tag in person_date_tags):
                 date_type = tag
             if(tag == "DATE"):
@@ -61,13 +64,13 @@ def read_file(path):
                     individuals[ind_id][date_type] = args
                 else:
                     families[ind_id][date_type] = args
-
+            #Indetifies family
             if(tag == "FAM"):
                 ind_id = args
                 fam_flag = True
                 families[ind_id] = {}
                 families[ind_id]["ID"] = args
-
+            #gets husband wife and child IDS
             if(tag in fam_date_tags):
                 date_type = tag
             if(tag == "HUSB" or tag == "WIFE"):
@@ -77,12 +80,16 @@ def read_file(path):
                     families[ind_id][tag] = [args]
                 else:
                     families[ind_id][tag].append(args)
-    
+
     ged.close
     return(individuals, families)
 
+#We Need these two lines to read in file and add to ages
+#Adds to age dictionary
+individuals, families =read_file('./test.ged')
+individuals = UsefulFunctions.age_bank(families, individuals)
+
+#Pretty print
 pp = pprint.PrettyPrinter()
-individuals, families =read_file('./project01.ged')
 pp.pprint(individuals)
-print(individuals.get("@I8@"))
 pp.pprint(families)
