@@ -1,11 +1,10 @@
-#gianna jason dan jake
-#project 3 portion that parses lines and prints out each indi and family
+#Gianna Jason Dan Jake
+#Project 3 portion that parses lines and prints out each indi and family
 
 import pprint
 
 def strip(ged_line):
     return ged_line.strip('\n').split(" ")
-
 
 def check(line):
     tags_0 = ["INDI",  "FAM",  "HEAD", "TRLR", "NOTE"]
@@ -31,7 +30,6 @@ def check(line):
         status = True
     return(status, tag, args)
 
-
 def read_file(path):
     ged = open(path)
     ged_lines = ged.readlines()
@@ -42,6 +40,7 @@ def read_file(path):
     individuals={}
     ind_id = ""
     families={}
+
     for ged_line in ged_lines:
         status, tag, args = check(strip(ged_line))
         if(status == True):
@@ -77,12 +76,11 @@ def read_file(path):
                     families[ind_id][tag] = [args]
                 else:
                     families[ind_id][tag].append(args)
-    
+
     ged.close
     return(individuals, families)
 
 pp = pprint.PrettyPrinter()
-individuals, families =read_file('./project01.ged')
+individuals, families =read_file('./test.ged')
 pp.pprint(individuals)
-print(individuals.get("@I8@"))
 pp.pprint(families)
