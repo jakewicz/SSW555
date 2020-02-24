@@ -1,104 +1,57 @@
-from datetime import timedelta, datetime
+from datetime import date, datetime
 
-def calc_ages(people): #runs on whole dictionary
+#returns true if dead
+def dead(indi, individuals): 
+    if('DEAT' in individuals[indi].keys()):
+        return True
+    else:
+        return False
+
+#age they died at
+def died_at(indi, individuals):
+    if('DEAT' in individuals[indi].keys()):
+        death = datetime.strptime(individuals[indi]['DEAT'], '%d %b %Y')
+        individuals[indi]['DEAT'] = datetime.strptime(individuals[indi]['DEAT'], '%d %b %Y')
+        birth = datetime.strptime(individuals[indi]['BIRT'], '%d %b %Y')
+        individuals[indi]['BIRT'] = datetime.strptime(individuals[indi]['BIRT'], '%d %b %Y')
+        death_age = int((death-birth).days/365)
+    return(death_age)
+
+#finds age and adds to individual dict
+def find_age(individuals): 
     today = datetime.now()
-    for key in people:
-        if('BIRT' in people[key].keys()):
-            if(is_dead(key, people) == False):
-                bday = datetime.strptime(people[key]['BIRT'], '%d %b %Y')
-                people[key]['BIRT'] = datetime.strptime(people[key]['BIRT'], '%d %b %Y')
-                people[key]['AGE'] = int((today - bday).days/365.2425)
+    for indi in individuals:
+        if('BIRT' in individuals[indi].keys()):
+            #finding age if still alive
+            if(dead(indi, individuals) == False):
+                birth =  datetime.strptime(individuals[indi]['BIRT'], '%d %b %Y')
+                individuals[indi]['BIRT'] = datetime.strptime(individuals[indi]['BIRT'], '%d %b %Y')
+                individuals[indi]['AGE'] = int((today - birth).days/365)
             else:
-                #if dead age is their last living age people[key]['AGE']
-                age = death_age(key, people)
-                people[key]['AGE'] = age
-                if(age < 0): #death before birth
-                    print("ERROR: Invalid death date, death before birth")
+                age = died_at(indi, individuals)
+                individuals[indi]['AGE'] = age
+                #checking if birthdaqy is after death
+                if(age < 0):
+                    print("ERROR: invalid death date")
                 else:
-                    people[key]['AGE']= age
-    return people
+                    individuals[indi]['AGE']= age
+    return individuals
 
-def is_dead(key, people): #by person
-    if('DEAT' in people[key].keys()):
-        return True
-    else:
-        return False
+#calculates marriage and divorce ages and adds to individuals dictionary
+def div_marr_ages(families, individuals):
+    for indi in families:
+        marriage =  datetime.strptime(families[indi]['MARR'], '%d %b %Y')
+        if ('DIV' in individuals[families[indi]['HUSB']].keys() or 'DIV' in individuals[families[indi]['WIFE']].keys()):
+            divorced = datetime.strptime(families[indi]['DIV'], '%d %b %Y')
+            individuals[families[indi]['HUSB']]['DIV_AGE'] = int((divorced-individuals[families[indi]['HUSB']]['BIRT']).days/365)
+            individuals[families[indi]['WIFE']]['DIV_AGE'] = int((divorced-individuals[families[indi]['WIFE']]['BIRT']).days/365)
 
-def get_age(key, people): #by person
-    #not totally needed but it could make life easy maybe.  can also just do a ditct call
-    return (people[key]['AGE'])
+        individuals[families[indi]['HUSB']]['MARR_AGE'] = int((marriage-individuals[families[indi]['HUSB']]['BIRT']).days/365)
+        individuals[families[indi]['WIFE']]['MARR_AGE'] = int((marriage-individuals[families[indi]['WIFE']]['BIRT']).days/365)
+    return(individuals)
 
-
-def death_age(key, people): #by person
-    if('DEAT' in people[key].keys()):
-        # print(people[key]['DEAT'])
-        # print(key, type(people[key]['DEAT']), people[key]['DEAT'])
-        if(type(people[key]['DEAT']) == str):
-            dday = datetime.strptime(people[key]['DEAT'], '%d %b %Y')
-            people[key]['DEAT'] = datetime.strptime(people[key]['DEAT'], '%d %b %Y')
-            bday = datetime.strptime(people[key]['BIRT'], '%d %b %Y')
-            people[key]['BIRT'] = datetime.strptime(people[key]['BIRT'], '%d %b %Y')
-            d_age = int((dday-bday).days/365.2425)
-        else:
-            d_age = int(
-                (people[key]['DEAT'] - people[key]['BIRT']).days/365.2425)
-        return(d_age)
-        
-
-def marr_and_div_ages(families, people): #runs on whole dictionary
-    for key in families: 
-        marr_date = datetime.strptime(families[key]['MARR'], '%d %b %Y')   
-        if ('DIV' in people[families[key]['HUSB']].keys() or 'DIV' in people[families[key]['WIFE']].keys()):
-            div_date = datetime.strptime(families[key]['DIV'], '%d %b %Y')
-            people[families[key]['HUSB']]['DIV_AGE'] = int((div_date-people[families[key]['HUSB']]['BIRT']).days/365.2425)
-            people[families[key]['WIFE']]['DIV_AGE'] = int((div_date-people[families[key]['WIFE']]['BIRT']).days/365.2425)
-        #print(marr_date)
-
-        people[families[key]['HUSB']]['MARR_AGE'] = int((marr_date-people[families[key]['HUSB']]['BIRT']).days/365.2425)
-        people[families[key]['WIFE']]['MARR_AGE'] = int((marr_date-people[families[key]['WIFE']]['BIRT']).days/365.2425)
-    return(people)
-
-def div_age():
-    pass
-#kc sprint 1 birth before marrage | birth before death
-
-def check_birth_before_marr(key, people):
-    if(people[key]['MARR_AGE'] < 0):
-        people[key]['MARR_AGE'] = "INVALID"
-        return("ERROR: Invalid Marrage date, married before birth")
-    else:
-        return("Marrage date valid")
-
-def age_bank(families, people):
-    people = calc_ages(people)
-    people = marr_and_div_ages(families, people)
-    return people
-
-def less_than_one_fifty(key, people):
-    # Ticket US07 - Death should be less than 150 years after 
-    # birth for dead people, and current date should be less 
-    # than 150 years after birth for all living people
-    if(death_age(key, people) >= 150):
-        return "Death Age Invalid"
-    if(get_age(key, people) >= 150):
-        return "Current Age Invalid"
-    
-def marrige_after_fourteen(key, people):
-    # Ticket US10 - Marriage should be at least 14 years after birth 
-    # of both spouses (parents must be at least 14 years old)
-    if(people[key]['MARR_AGE'] <= 14):
-        return "Marrige under the age of 14 is invalid"
-
-
-def mar_b4_death(key, people):
-    if(people[key]['MARR_AGE'] > people[key]['AGE']):
-        return False
-    else:
-        return True
-
-
-def div_b4_death(key, people):
-    if(people[key]['DIV_AGE'] > people[key]['AGE']):
-        return False
-    else:
-        return True
+#keeping track of ages in dictionaries
+def age_bank(families, individuals):
+    individuals = find_age(individuals)
+    individuals = div_marr_ages(families, individuals)
+    return individuals
