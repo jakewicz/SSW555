@@ -40,8 +40,14 @@ def young_marriage(indi, individuals):
     if(individuals[indi]['MARR_AGE'] <= 14):
         return "Error: Too young to get married, must be at least 14 years old"
 
+#author JS
+#checks if all dates are before current date
+def check_current_date(indi, individuals):
+    if (datetime.strptime(individuals[indi]['DATE']) > datetime.now()):
+        return "Error: date is after the current date"
+
 #author GM
-#checks if marriage date is befgore death date
+#checks if marriage date is before death date
 def married_before_death(indi, individuals):
     if(individuals[indi]['MARR_AGE'] > individuals[indi]['AGE']):
         return "Error: cannot get married after death"
@@ -49,7 +55,7 @@ def married_before_death(indi, individuals):
         return "valid"
 
 #author GM
-#checks if marriage date is befgore divorce date
+#checks if marriage date is before divorce date
 def married_before_div(indi, individuals):
     if(individuals[indi]['DIV_AGE'] > individuals[indi]['MARR_AGE']):
         return "valid"
