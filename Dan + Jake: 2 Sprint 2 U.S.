@@ -1,0 +1,29 @@
+#_____________________________________________US16____________________________________________________________________________
+for indi in individuals.values(): 
+    if indi["SEX"] == "M":
+        line = indi["NAME"]
+        line = line.strip()
+        parse = line.split(' ')
+        firstName = parse[0]
+        lastName = parse[1]
+        lastName = lastName.replace("/", "", 2)
+        print(lastName) 
+#________________________________________________US12_________________________________________________________________________
+for fam in families.values():
+    if "CHIL" in fam.keys():
+        latestbirth = datetime.datetime.min
+        for child in fam["CHIL"]:
+            currentbirth = individuals[child]["BIRT"]
+            if currentbirth > latestbirth:
+                latestbirth = currentbirth
+        if "HUSB" in fam.keys():
+            husb_adj_birth = individuals[fam["HUSB"]]["BIRT"]
+            husb_adj_birth = husb_adj_birth.replace(husb_adj_birth.year + 80)
+        if "WIFE" in fam.keys():
+            wife_adj_birth = individuals[fam["WIFE"]]["BIRT"]
+            wife_adj_birth = wife_adj_birth.replace(wife_adj_birth.year + 60)
+        if wife_adj_birth < latestbirth:
+            print(individuals[fam["WIFE"]]["NAME"] + " bore a child after the age of 60")
+        if husb_adj_birth < latestbirth:
+            print(individuals[fam["HUSB"]]["NAME"] + " had a child after the age of 80")
+#____________________________________________________________________________________________________________________________
