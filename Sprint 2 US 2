@@ -1,0 +1,11 @@
+#_____________________________________________US17___________________________________________________________________________
+for fam in families.values():
+    if "CHIL" in fam.keys():
+        for child in fam["CHIL"]:
+            if child == fam["HUSB"]:
+                print ("You can't marry your child, man!")    
+            if child == fam["WIFE"]:
+                print ("You can't marry your child, woman!")
+            else:
+                continue
+#______________________________________________________________________________________________________________________________
