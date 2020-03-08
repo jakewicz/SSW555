@@ -1,11 +1,30 @@
 #_____________________________________________US17___________________________________________________________________________
-for fam in families.values():
-    if "CHIL" in fam.keys():
-        for child in fam["CHIL"]:
-            if child == fam["HUSB"]:
-                print ("You can't marry your child, man!")    
-            if child == fam["WIFE"]:
-                print ("You can't marry your child, woman!")
-            else:
-                continue
-#______________________________________________________________________________________________________________________________
+def dont_marry_children(families):
+    marryChild = []
+    for fam in families:
+        if "CHIL" in fam.keys():
+            for child in fam["CHIL"]:
+                if child == fam["HUSB"]:
+                    print ("You can't marry your child, man!")    
+                    marryChild.append("You can't marry your child, man!")
+                if child == fam["WIFE"]:
+                    print ("You can't marry your child, woman!")
+                    marryChild.append("You can't marry your child, woman!")
+                else:
+                    continue
+    return marryChild
+#_____________________________________________US16____________________________________________________________________________
+def get_last_names(individuals):
+    names = []
+    for indi in individuals: 
+        if indi["SEX"] == "M":
+            line = indi["NAME"]
+            line = line.strip()
+            parse = line.split(' ')
+            firstName = parse[0]
+            lastName = parse[1]
+            lastName = lastName.replace("/", "", 2)
+            names.append(lastName)
+            print(lastName)
+    return names 
+    #__________________________________________________________________________________________________________________________
