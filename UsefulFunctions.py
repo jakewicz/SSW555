@@ -11,11 +11,9 @@ def dead(indi, individuals):
 def died_at(indi, individuals):
     if('DEAT' in individuals[indi].keys()):
         death = datetime.strptime(individuals[indi]['DEAT'], '%d %b %Y')
-        individuals[indi]['DEAT'] = datetime.strptime(individuals[indi]['DEAT'], '%d %b %Y')
         birth = datetime.strptime(individuals[indi]['BIRT'], '%d %b %Y')
-        individuals[indi]['BIRT'] = datetime.strptime(individuals[indi]['BIRT'], '%d %b %Y')
-        death_age = int((death-birth).days/365)
-    return(death_age)
+        death_age = int((death-(birth)).days/365)
+        return(int(death_age))
 
 #finds age and adds to individual dict
 def find_age(individuals): 
@@ -24,8 +22,8 @@ def find_age(individuals):
         if('BIRT' in individuals[indi].keys()):
             #finding age if still alive
             if(dead(indi, individuals) == False):
-                birth =  datetime.strptime(individuals[indi]['BIRT'], '%d %b %Y')
-                individuals[indi]['BIRT'] = datetime.strptime(individuals[indi]['BIRT'], '%d %b %Y')
+                birth =  datetime.strptime(individuals[indi]['BIRT'], '%d %b %Y') 
+                #individuals[indi]['BIRT'] = datetime.strptime(individuals[indi]['BIRT'], '%d %b %Y')#not working
                 individuals[indi]['AGE'] = int((today - birth).days/365)
             else:
                 age = died_at(indi, individuals)
@@ -46,8 +44,8 @@ def div_marr_ages(families, individuals):
             individuals[families[indi]['HUSB']]['DIV_AGE'] = int((divorced-individuals[families[indi]['HUSB']]['BIRT']).days/365)
             individuals[families[indi]['WIFE']]['DIV_AGE'] = int((divorced-individuals[families[indi]['WIFE']]['BIRT']).days/365)
 
-        individuals[families[indi]['HUSB']]['MARR_AGE'] = int((marriage-individuals[families[indi]['HUSB']]['BIRT']).days/365)
-        individuals[families[indi]['WIFE']]['MARR_AGE'] = int((marriage-individuals[families[indi]['WIFE']]['BIRT']).days/365)
+        individuals[families[indi]['HUSB']]['MARR_AGE'] = int((marriage-datetime.strptime(individuals[families[indi]['HUSB']]['BIRT'], '%d %b %Y')).days/365)
+        individuals[families[indi]['WIFE']]['MARR_AGE'] = int((marriage-datetime.strptime(individuals[families[indi]['WIFE']]['BIRT'], '%d %b %Y')).days/365)
     return(individuals)
 
 #keeping track of ages in dictionaries
