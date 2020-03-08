@@ -1,15 +1,16 @@
 from UsefulFunctions import *
 from Parser import *
 
+#US15
 #author GM
 #no more than 15 siblings
 def child_max(indi, families):
     for fam in families:
         if 'CHIL' in families[fam].keys():
             if len(families[fam]['CHIL']) >15:
-                print("too many kids")
+                return("ERROR: too many kids")
 
-
+#US14
 #author GM
 #no more than 5 kids born at once
 def quintuplets(indi, families):
