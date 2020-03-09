@@ -28,9 +28,19 @@ def quintuplets(indi, families):
                         return ("ERROR: more than 5 kids born at once")
     return ("families valid")
 
+#US28
+#author JC
+#list the deceased
+def the_deceased(individuals):
+    dead = {}
+    for indi in individuals:
+        if('DEAT' in individuals[indi].keys()):
+            dead[individuals[indi]['ID']] = individuals[indi]['NAME']
+        else:
+            continue
+    return dead
 
 #We Need these two lines to read in file and add to ages
 #Adds to age dictionary
 individuals, families =read_file('./test.ged')
 individuals = UsefulFunctions.age_bank(families, individuals)
-print(quintuplets(individuals, families))
