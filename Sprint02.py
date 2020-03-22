@@ -14,18 +14,17 @@ def child_max(indi, families):
 #author GM
 #no more than 5 kids born at once
 def quintuplets(indi, families):
-    for fam in families:
-        if 'CHIL' in families[fam].keys():
-            if len(families[fam]['CHIL']) >1:
-                #family has more than 5 kids
-                for child in families[fam]['CHIL']:
-                    counter=1
-                    date= individuals[child]['BIRT']
-                    for child2 in families[fam]['CHIL']:
-                        if(individuals[child2]['BIRT']==date):
-                            counter +=1
-                    if (counter >5):
-                        return ("ERROR: more than 5 kids born at once")
+    if 'CHIL' in families[indi].keys():
+        if len(families[indi]['CHIL']) >5:
+            #family has more than 5 kids
+            for child in families[indi]['CHIL']:
+                counter=1
+                date= individuals[child]['BIRT']
+                for child2 in families[indi]['CHIL']:
+                    if(individuals[child2]['BIRT']==date):
+                        counter +=1
+                if (counter >6):
+                    return ("ERROR: more than 5 kids born at once")
     return ("families valid")
 
 #US28

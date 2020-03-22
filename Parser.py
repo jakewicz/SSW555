@@ -92,9 +92,9 @@ individuals, families =read_file('./test.ged')
 individuals = UsefulFunctions.age_bank(families, individuals)
 
 #Pretty print
-pp = pprint.PrettyPrinter()
-pp.pprint(individuals)
-pp.pprint(families)
+#pp = pprint.PrettyPrinter()
+#pp.pprint(individuals)
+#pp.pprint(families)
 
 
 #printing in table format
