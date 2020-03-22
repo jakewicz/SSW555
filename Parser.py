@@ -3,6 +3,8 @@
 
 import pprint
 import UsefulFunctions
+import pandas as pd
+from tabulate import tabulate
 
 #Stripping extra lines
 def strip(ged_line):
@@ -93,3 +95,11 @@ individuals = UsefulFunctions.age_bank(families, individuals)
 pp = pprint.PrettyPrinter()
 pp.pprint(individuals)
 pp.pprint(families)
+
+
+#printing in table format
+ind_table = pd.DataFrame(individuals).transpose()
+print(tabulate(ind_table, headers='keys', tablefmt='psql'))
+
+fam_table = pd.DataFrame(families).transpose()
+print(tabulate(fam_table, headers='keys', tablefmt='psql'))
