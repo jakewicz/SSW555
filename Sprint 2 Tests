@@ -1,0 +1,11 @@
+
+import unittest
+
+class Test_Parser(unittest.TestCase):
+
+    def test_dont_marry_children(self):
+        self.assertEqual(dont_marry_children(families.values()), [])
+    def test_get_last_names(self):
+        self.assertEqual(get_last_names(individuals.values()), ["Chlus", "Chlus", "Fisher", "Fisher", "Chlus", "Chlus", "Najjar", "Najjar", "Najjar", "Najjar","Cambalik", "Cambalik", "Cambalik"])
+
+unittest.main()
