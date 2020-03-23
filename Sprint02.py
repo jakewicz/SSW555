@@ -33,7 +33,7 @@ def quintuplets(indi, families):
 def the_deceased(individuals):
     dead = {}
     for indi in individuals:
-        if('DEAT' in individuals[indi].keys()):
+        if(individuals[indi]['ALIVE'] == 'False'):
             dead[individuals[indi]['ID']] = individuals[indi]['NAME']
         else:
             continue
