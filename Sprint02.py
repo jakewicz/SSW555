@@ -5,10 +5,9 @@ from Parser import *
 #author GM
 #no more than 15 siblings
 def child_max(indi, families):
-    for fam in families:
-        if 'CHIL' in families[fam].keys():
-            if len(families[fam]['CHIL']) >15:
-                return("ERROR: too many kids")
+    if 'CHIL' in families[indi].keys():
+        if len(families[indi]['CHIL']) >15:
+            return("ERROR: too many kids")
 
 #US14
 #author GM
