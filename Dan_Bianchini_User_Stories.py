@@ -1,3 +1,4 @@
+from datetime import datetime
 # ========================== SPRINT 1 ============================
 
 # US 02
@@ -17,7 +18,9 @@ def US02_born_after_married(indi, individuals):
 def US03_death_before_birth(indi, individuals):
     if individuals[indi]['DEAT'] == 'N/A':
         return False
-    diff = int((individuals[indi]['DEAT'] - individuals[indi]['BIRT']).days / 365)
+    death = datetime.strptime(individuals[indi]['DEAT'], '%d %b %Y')
+    birth = datetime.strptime(individuals[indi]['BIRT'], '%d %b %Y')
+    diff = int((death - birth).days / 365)
     if diff < 0:
         print("ERROR US03: ", individuals[indi]['NAME'], " died before birth")
         return True
@@ -29,12 +32,12 @@ def US03_death_before_birth(indi, individuals):
 # author DB
 # returns true if individual was born before his/her parents were married
 def US08_born_before_parents_married(indi, individuals, families):
-    birth = individuals[indi]['BIRT']
+    birth = datetime.strptime(individuals[indi]['BIRT'], '%d %b %Y')
     if individuals[indi]['FAMC'] == 'N/A':
         return False
     if individuals[indi]['FAMC'] not in families.keys():
         return False
-    marriage = families[individuals[indi]['FAMC']]['MARR']
+    marriage = datetime.strptime(families[individuals[indi]['FAMC']]['MARR'], '%d %b %Y')
     if birth < marriage:
         print("ERROR US08: ", individuals[indi]['NAME'], " born before parents married")
         return True
@@ -44,13 +47,13 @@ def US08_born_before_parents_married(indi, individuals, families):
 # author DB
 # returns true if parents are too old (80 years older for father, 60 years for mother)
 def US12_parents_too_old(indi, individuals, families):
-    birth = individuals[indi]['BIRT']
+    birth = datetime.strptime(individuals[indi]['BIRT'], '%d %b %Y')
     if individuals[indi]['FAMC'] == 'N/A':
         return False
     if individuals[indi]['FAMC'] not in families.keys():
         return False
-    father_birth = individuals[families[individuals[indi]['FAMC']]['HUSB']]['BIRT']
-    mother_birth = individuals[families[individuals[indi]['FAMC']]['WIFE']]['BIRT']
+    father_birth = datetime.strptime(individuals[families[individuals[indi]['FAMC']]['HUSB']]['BIRT'], '%d %b %Y')
+    mother_birth = datetime.strptime(individuals[families[individuals[indi]['FAMC']]['WIFE']]['BIRT'], '%d %b %Y')
     father_diff = int((father_birth - birth).days / 365)
     mother_diff = int((mother_birth - birth).days / 365)
     if father_diff >= 80:
@@ -85,7 +88,7 @@ def US32_list_multiple_births(individuals, families):
             for child in families[fam]['CHIL']:
                 if child in birthdays.values():
                     continue
-                birth = individuals[child]['BIRT']
+                birth = datetime.strptime(individuals[child]['BIRT'], '%d %b %Y')
                 done_flag = False
                 for bday in birthdays.keys():
                     diff = (bday - birth).days
