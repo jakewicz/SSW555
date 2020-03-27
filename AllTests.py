@@ -2,6 +2,7 @@
 import unittest
 from Sprint02 import *
 from Sprint01 import *
+from Sprint03 import *
 
 #format sample
     #def test_US##(self):
@@ -25,6 +26,12 @@ class Sprint02Test(unittest.TestCase):
     def test_US14(self):
         for indi in families:
             self.assertEqual(US14_quintuplets(indi, families), None, indi)
+    def test_US34(self):
+        for indi in individuals:
+            self.assertEqual(US34_age_difference(indi, individuals), None, indi)
+    def test_US21(self):
+        for indi in families:
+            self.assertEqual(US21_correct_gender(indi, families, individuals), None, indi)
 
 
 #DO NOT EDIT AFTER THIS POINT
