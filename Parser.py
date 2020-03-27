@@ -5,7 +5,6 @@ import pprint
 import UsefulFunctions
 import pandas as pd
 from tabulate import tabulate
-import Dan_Bianchini_User_Stories as Dan
 
 #Stripping extra lines
 def strip(ged_line):
@@ -105,13 +104,3 @@ print(tabulate(fam_table, headers='keys', tablefmt='psql'))
 
 
 # ===================================== USER STORY IMPLEMENTATIONS BELOW THIS POINT ==============================================
-for indi in individuals:
-    Dan.US02_born_after_married(indi, individuals)
-    Dan.US03_death_before_birth(indi, individuals)
-    Dan.US08_born_before_parents_married(indi, individuals, families)
-    Dan.US12_parents_too_old(indi, individuals, families)
-
-print()
-Dan.US31_list_living_single(individuals)
-print()
-Dan.US32_list_multiple_births(individuals, families)
