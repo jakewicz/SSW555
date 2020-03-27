@@ -28,11 +28,6 @@ def find_age(individuals):
             else:
                 age = died_at(indi, individuals)
                 individuals[indi]['AGE'] = age
-                #checking if birthdaqy is after death
-                if(age < 0):
-                    print("ERROR: invalid death date")
-                else:
-                    individuals[indi]['AGE']= age
     return individuals
 
 #calculates marriage and divorce ages and adds to individuals dictionary

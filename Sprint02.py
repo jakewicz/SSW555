@@ -4,7 +4,7 @@ from Parser import *
 #US15
 #author GM
 #no more than 15 siblings
-def child_max(indi, families):
+def US15_child_max(indi, families):
     if 'CHIL' in families[indi].keys():
         if len(families[indi]['CHIL']) >15:
             return("ERROR: too many kids")
@@ -12,7 +12,7 @@ def child_max(indi, families):
 #US14
 #author GM
 #no more than 5 kids born at once
-def quintuplets(indi, families):
+def US14_quintuplets(indi, families):
     if 'CHIL' in families[indi].keys():
         if len(families[indi]['CHIL']) >5:
             #family has more than 5 kids
@@ -24,12 +24,11 @@ def quintuplets(indi, families):
                         counter +=1
                 if (counter >6):
                     return ("ERROR: more than 5 kids born at once")
-    return ("families valid")
 
 #US28
 #author JC
 #list the deceased
-def the_deceased(individuals):
+def US29_the_deceased(individuals):
     dead = {}
     for indi in individuals:
         if(individuals[indi]['ALIVE'] == 'False'):

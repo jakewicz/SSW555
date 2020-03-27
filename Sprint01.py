@@ -2,7 +2,7 @@ from UsefulFunctions import *
 from Parser import *
 
 #checking if person was born before married
-def marriage_after_birth(indi, individuals):
+def US02_marriage_after_birth(indi, individuals):
     if individuals[indi]['MARR_AGE'] != 'N/A':
         if(individuals[indi]['MARR_AGE'] < 0 ):
             individuals[indi]['MARR_AGE'] = "INVALID"
@@ -13,7 +13,7 @@ def marriage_after_birth(indi, individuals):
         return("no marriage date")
 
 #birth before death
-def birth_before_death(indi, individuals):
+def US03_birth_before_death(indi, individuals):
     if(individuals[indi]['AGE'] >= 0):
         return "valid"
     else:
@@ -21,7 +21,7 @@ def birth_before_death(indi, individuals):
 
 #author JC
 #checks to see if person is less than 150 years old
-def check150(indi, individuals):
+def US07_check150(indi, individuals):
     if individuals[indi]['DEAT'] is int:
         if(died_at(indi, individuals) >= 150):
             return "Error: Too Old"
@@ -30,7 +30,7 @@ def check150(indi, individuals):
 
 #author JC
 #checks if death date is after divorce date
-def divorce_before_death(indi, individuals):
+def US06_divorce_before_death(indi, individuals):
     if individuals[indi]['DIV_AGE'] != 'N/A':
         if(individuals[indi]['DIV_AGE'] > individuals[indi]['AGE']):
             return "Error: cannot get divorced after death"
@@ -38,13 +38,13 @@ def divorce_before_death(indi, individuals):
             return "valid"
 
 #checks if indi got marriede befgore age of 14
-def young_marriage(indi, individuals):
+def US10_young_marriage(indi, individuals):
     if individuals[indi]['MARR_AGE'] != 'N/A' and individuals[indi]['MARR_AGE'] != 'INVALID':
         if(individuals[indi]['MARR_AGE'] <= 14):
             return "Error: Too young to get married, must be at least 14 years old"
 
 #checks if all dates are before current date
-def check_current_date(indi, individuals):
+def US01_check_current_date(indi, individuals):
     if 'BIRT' in individuals[indi].keys() and individuals[indi]['BIRT'] != 'N/A':
         if (datetime.strptime(individuals[indi]['BIRT'], '%d %b %Y') > datetime.now()):
             return "Error: date is after the current date"
@@ -60,7 +60,7 @@ def check_current_date(indi, individuals):
             
 #author GM
 #checks if marriage date is before death date
-def married_before_death(indi, individuals):
+def US05_married_before_death(indi, individuals):
     if individuals[indi]['MARR_AGE'] != 'N/A' and individuals[indi]['MARR_AGE'] != 'INVALID':
         if(individuals[indi]['MARR_AGE'] > individuals[indi]['AGE']):
             return "Error: cannot get married after death"
@@ -69,7 +69,7 @@ def married_before_death(indi, individuals):
 
 #author GM
 #checks if marriage date is before divorce date
-def married_before_div(indi, individuals):
+def US04_married_before_div(indi, individuals):
     if individuals[indi]['MARR_AGE'] != 'N/A' and individuals[indi]['MARR_AGE'] != 'INVALID':
         if individuals[indi]['DIV_AGE'] != 'N/A' and individuals[indi]['DIV_AGE'] != 'INVALID':
             if(individuals[indi]['DIV_AGE'] > individuals[indi]['MARR_AGE']):
