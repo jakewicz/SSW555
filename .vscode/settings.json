@@ -4,5 +4,6 @@
         "**/.project": true,
         "**/.settings": true,
         "**/.factorypath": true
-    }
+    },
+    "python.pythonPath": "C:\\Users\\Dan\\anaconda3\\python.exe"
 }

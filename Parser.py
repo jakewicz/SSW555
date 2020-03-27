@@ -101,3 +101,6 @@ print(tabulate(ind_table, headers='keys', tablefmt='psql'))
 
 fam_table = pd.DataFrame(families).transpose()
 print(tabulate(fam_table, headers='keys', tablefmt='psql'))
+
+
+# ===================================== USER STORY IMPLEMENTATIONS BELOW THIS POINT ==============================================
