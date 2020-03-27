@@ -1,5 +1,5 @@
 from datetime import date, datetime
-#for revert
+
 #returns true if dead
 def dead(indi, individuals): 
     if('DEAT' in individuals[indi].keys()):
