@@ -58,7 +58,11 @@ def div_marr_ages(families, individuals):
             individuals[families[indi]['HUSB']]['SPOUSE'] = families[indi]['WIFE']
             families[indi]['Husband Name'] = individuals[families[indi]['HUSB']]['NAME']
         
-    for indi in individuals:    
+    for indi in individuals:
+        if 'FAMC' not in individuals[indi].keys():
+            individuals[indi]['FAMC'] = "N/A"
+        if 'FAMS' not in individuals[indi].keys():
+            individuals[indi]['FAMS'] = "N/A"
         if 'MARR_AGE' not in individuals[indi].keys():
             individuals[indi]['MARR_AGE'] = "N/A"
         if 'DIV_AGE' not in individuals[indi].keys():
