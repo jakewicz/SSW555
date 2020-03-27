@@ -4,12 +4,10 @@ from Sprint02 import *
 def US15_test_child_max(indi, families):
     if(US15_child_max(indi, families) == "ERROR: too many kids"):
         print("ERROR: US15", indi, ": too many kids")
-    #else: return("child max test passed")
 
 def US14_test_quintuplets(indi, families):
     if(US14_quintuplets(indi, families) == "ERROR: more than 5 kids born at once"):
         print("ERROR: US14", indi, ": more than 5 kids born at once")
-    #else: return("quintuplets test passed")
 
 def US29_test_the_deceased(individuals):
     result = US29_the_deceased(individuals)

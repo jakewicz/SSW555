@@ -6,12 +6,13 @@ from Parser import *
 #list large age differences (older spouse is twice the age of younger)
 def US34_age_difference(indi, individuals):
     if individuals[indi]['SPOUSE'] != 'N/A':
-        age1 = individuals[indi]['MARR_AGE']
-        age2 = individuals[individuals[indi]['SPOUSE']]['MARR_AGE']
-        if age1 >= age1*2:
-            return('ERROR: US15 large age difference in married couple')
-        elif age2 >= age1*2:
-            return('ERROR: US15 large age difference in married couple')
+        if individuals[indi]['MARR_AGE'] != 'INVALID' and individuals[individuals[indi]['SPOUSE']]['MARR_AGE'] != 'INVALID':
+            age1 = individuals[indi]['MARR_AGE']
+            age2 = individuals[individuals[indi]['SPOUSE']]['MARR_AGE']
+            if age1 >= age1*2:
+                return('ERROR: US34 large age difference in married couple')
+            elif age2 >= age1*2:
+                return('ERROR: US34 large age difference in married couple')
 
 #US 21
 #author GM
