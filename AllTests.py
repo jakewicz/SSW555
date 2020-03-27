@@ -1,7 +1,9 @@
 # This is our test file
+from Sprint02 import *
 from Sprint01 import *
+from Sprint03 import *
 
-
+#sprint 1 tests
 def US02_test_marriage_after_birth(indi, individuals):
     if(US02_marriage_after_birth(indi, individuals) == "ERROR: married before born"):
         print("ERROR: US02", indi, ": married before born")
@@ -34,6 +36,31 @@ def US04_test_married_before_div(indi, individuals):
     if (US04_married_before_div(indi, individuals) == "Error: marriage date after divorce date"):
         print( "ERROR: US04", indi, ": marriage date after divorce date")
 
+#start sprint 2 tests
+def US15_test_child_max(indi, families):
+    if (US15_child_max(indi, families) == "ERROR: too many kids"):
+        print( "ERROR: US15", indi, ": family has over 15 children")
+
+def US14_test_quin(indi, families):
+    if (US14_quintuplets(indi, families) == "ERROR: more than 5 kids born at once"):
+        print( "ERROR: US14", indi, ": family has more than 5 children born at the same time")
+
+def US29_test_the_deceased(individuals):
+    result = US29_the_deceased(individuals)
+    if ("ERROR: US29" in result):
+        return result
+    else:
+        return "The deceased: " + str(result)
+
+#tests for sprint 3
+def US21_test_gender(indi, families, individuals):
+    if (US21_correct_gender(indi, families, individuals) == 'ERROR: US21 wrong gender for role'):
+        print( "ERROR: US21", indi, ": husband or wife is the wrong gender for that role")
+
+def US34_test_age_diff(indi, individuals):
+    if (US34_age_difference(indi, individuals) == 'ERROR: US34 large age difference in married couple'):
+        print( "ERROR: US34", indi, ": age difference too big, one partner was twice the age of the other when married")
+
 for indi in individuals:
     US01_test_check_current_date(indi, individuals)
     US02_test_marriage_after_birth(indi, individuals)
@@ -43,3 +70,9 @@ for indi in individuals:
     US06_test_divorce_before_death(indi, individuals)
     US07_test_check150(indi, individuals)
     US10_test_young_marriage(indi, individuals)
+    US34_test_age_diff(indi, individuals)
+for indi in families:
+    US14_test_quin(indi, families)
+    US15_test_child_max(indi, families)
+    US21_test_gender(indi, families, individuals)
+print(US29_test_the_deceased(individuals))
