@@ -50,6 +50,10 @@ def read_file(path):
     for ged_line in ged_lines:
         status, tag, args = check(strip(ged_line))
         if(status == True):
+            if (tag == "FAMC"):
+                individuals[ind_id]["FAMC"] = args
+            if (tag == "FAMS"):
+                individuals[ind_id]["FAMS"] = args
             if(tag == "INDI"):
                 ind_id = args
                 individuals[ind_id] = {}
