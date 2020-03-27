@@ -63,9 +63,9 @@ def read_file(path):
                 date_type = tag
             if(tag == "DATE"):
                 if(fam_flag == False):
-                    individuals[ind_id][date_type] = args
+                    individuals[ind_id][date_type] = UsefulFunctions.handle_date(args)
                 else:
-                    families[ind_id][date_type] = args
+                    families[ind_id][date_type] = UsefulFunctions.handle_date(args)
             #Indetifies family
             if(tag == "FAM"):
                 ind_id = args
@@ -86,16 +86,10 @@ def read_file(path):
     ged.close
     return(individuals, families)
 
-#We Need these two lines to read in file and add to ages
-#Adds to age dictionary
-individuals, families =read_file('./test.ged')
+#reads information from file
+individuals, families = read_file('./test.ged')
+#calculates and stores useful data, mostly ages
 individuals = UsefulFunctions.age_bank(families, individuals)
-
-#Pretty print
-#pp = pprint.PrettyPrinter()
-#pp.pprint(individuals)
-#pp.pprint(families)
-
 
 #printing in table format
 ind_table = pd.DataFrame(individuals).transpose()

@@ -10,10 +10,10 @@ def dead(indi, individuals):
 #age they died at
 def died_at(indi, individuals):
     if individuals[indi]['DEAT'] != 'N/A':
-        death = datetime.strptime(individuals[indi]['DEAT'], '%d %b %Y')
-        birth = datetime.strptime(individuals[indi]['BIRT'], '%d %b %Y')
-        death_age = int((death-(birth)).days/365)
-        return(int(death_age))
+        death = individuals[indi]['DEAT']
+        birth = individuals[indi]['BIRT']
+        death_age = (death - birth).days/365
+        return(death_age)
 
 #finds age and adds to individual dict
 def find_age(individuals): 
@@ -22,30 +22,24 @@ def find_age(individuals):
         if('BIRT' in individuals[indi].keys()):
             #finding age if still alive
             if(dead(indi, individuals) == False):
-                birth =  datetime.strptime(individuals[indi]['BIRT'], '%d %b %Y') 
-                #individuals[indi]['BIRT'] = datetime.strptime(individuals[indi]['BIRT'], '%d %b %Y')#not working
-                individuals[indi]['AGE'] = int((today - birth).days/365)
+                birth = individuals[indi]['BIRT']
+                individuals[indi]['AGE'] = (today - birth).days/365
             else:
-                age = died_at(indi, individuals)
-                individuals[indi]['AGE'] = age
-                #checking if birthdaqy is after death
-                if(age < 0):
-                    print("ERROR: invalid death date")
-                else:
-                    individuals[indi]['AGE']= age
+                individuals[indi]['AGE'] = died_at(indi, individuals)             
     return individuals
 
 #calculates marriage and divorce ages and adds to individuals dictionary
+#also adds "N/A" for values if not applicable
 def div_marr_ages(families, individuals):
     for indi in families:
-        marriage =  datetime.strptime(families[indi]['MARR'], '%d %b %Y')
+        marriage =  families[indi]['MARR']
         if ('DIV' in families[indi].keys()):
-            divorced = datetime.strptime(families[indi]['DIV'], '%d %b %Y')
-            individuals[families[indi]['HUSB']]['DIV_AGE'] = int((divorced-datetime.strptime(individuals[families[indi]['HUSB']]['BIRT'], '%d %b %Y')).days/365)
-            individuals[families[indi]['WIFE']]['DIV_AGE'] = int((divorced-datetime.strptime(individuals[families[indi]['WIFE']]['BIRT'], '%d %b %Y')).days/365)
+            divorced = families[indi]['DIV']
+            individuals[families[indi]['HUSB']]['DIV_AGE'] = (divorced - individuals[families[indi]['HUSB']]['BIRT']).days/365
+            individuals[families[indi]['WIFE']]['DIV_AGE'] = (divorced - individuals[families[indi]['WIFE']]['BIRT']).days/365
 
-        individuals[families[indi]['HUSB']]['MARR_AGE'] = int((marriage-datetime.strptime(individuals[families[indi]['HUSB']]['BIRT'], '%d %b %Y')).days/365)
-        individuals[families[indi]['WIFE']]['MARR_AGE'] = int((marriage-datetime.strptime(individuals[families[indi]['WIFE']]['BIRT'], '%d %b %Y')).days/365)
+        individuals[families[indi]['HUSB']]['MARR_AGE'] = (marriage - individuals[families[indi]['HUSB']]['BIRT']).days/365
+        individuals[families[indi]['WIFE']]['MARR_AGE'] = (marriage - individuals[families[indi]['WIFE']]['BIRT']).days/365
         
         if 'DIV' not in families[indi].keys():
             families[indi]['DIV'] = "N/A"
@@ -83,3 +77,15 @@ def age_bank(families, individuals):
     individuals = find_age(individuals)
     individuals = div_marr_ages(families, individuals)
     return individuals
+
+def handle_date(raw_date):
+    month = 0
+    months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
+    info = raw_date.split(" ")
+    for x in range(12):
+        if (info[1] == months[x]):
+            month = x + 1
+    if (month == 0):
+        print("ERROR: invalid month ", info[1])
+        return
+    return datetime(int(info[2]), month, int(info[0]))
