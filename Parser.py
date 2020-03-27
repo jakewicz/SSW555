@@ -114,6 +114,4 @@ for indi in individuals:
 print()
 Dan.US31_list_living_single(individuals)
 print()
-Dan.US32A_list_multiple_births(individuals, families)
-print()
-Dan.US32B_list_multiple_births(individuals, families)
+Dan.US32_list_multiple_births(individuals, families)

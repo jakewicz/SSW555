@@ -75,35 +75,30 @@ def US31_list_living_single(individuals):
 # US 32
 # author DB
 # interpretation A: list all sets of tuplets (twins, triplets, etc.)
-def US32A_list_multiple_births(individuals, families):
-    print("US 32A: list multiple births:")
+def US32_list_multiple_births(individuals, families):
+    print("US 32: list multiple births:")
     for fam in families:
         birthdays = {}
         if families[fam]['CHIL'] == 'N/A':
             continue
         if len(families[fam]['CHIL']) > 1:
             for child in families[fam]['CHIL']:
+                if child in birthdays.values():
+                    continue
                 birth = individuals[child]['BIRT']
-                if birth not in birthdays.keys():
-                    birthdays[birth] = [child]
-                else:
-                    birthdays[birth].append(child)
+                done_flag = False
+                for bday in birthdays.keys():
+                    diff = (bday - birth).days
+                    if diff >= -1 and diff < 1:
+                        birthdays[bday].append(child)
+                        done_flag = True
+                        break
+                if done_flag:
+                    continue
+                birthdays[birth] = [child]
+                
         for birth in birthdays:
             if len(birthdays[birth]) > 1:
-                print(birth, end =": ")
                 for child in birthdays[birth]:
-                    print(individuals[child]['NAME'], end =", ")
+                    print(individuals[child]['NAME'], " (", individuals[child]['BIRT'], end ="), ")
                 print()
-
-# US 32
-# author DB
-# interpretation B: list all children that are not only children
-def US32B_list_multiple_births(individuals, families):
-    print("US 32B: list multiple births:")
-    for fam in families:
-        if families[fam]['CHIL'] == 'N/A':
-            continue
-        if len(families[fam]['CHIL']) > 1:
-            for child in families[fam]['CHIL']:
-                print(individuals[child]['NAME'], end =", ")
-        print()
