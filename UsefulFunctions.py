@@ -12,7 +12,7 @@ def died_at(indi, individuals):
     if individuals[indi]['DEAT'] != 'N/A':
         death = individuals[indi]['DEAT']
         birth = individuals[indi]['BIRT']
-        death_age = (death - birth).days/365
+        death_age = int((death - birth).days/365)
         return(death_age)
 
 #finds age and adds to individual dict
@@ -23,7 +23,7 @@ def find_age(individuals):
             #finding age if still alive
             if(dead(indi, individuals) == False):
                 birth = individuals[indi]['BIRT']
-                individuals[indi]['AGE'] = (today - birth).days/365
+                individuals[indi]['AGE'] = int((today - birth).days/365)
             else:
                 individuals[indi]['AGE'] = died_at(indi, individuals)             
     return individuals
@@ -35,11 +35,11 @@ def div_marr_ages(families, individuals):
         marriage =  families[indi]['MARR']
         if ('DIV' in families[indi].keys()):
             divorced = families[indi]['DIV']
-            individuals[families[indi]['HUSB']]['DIV_AGE'] = (divorced - individuals[families[indi]['HUSB']]['BIRT']).days/365
-            individuals[families[indi]['WIFE']]['DIV_AGE'] = (divorced - individuals[families[indi]['WIFE']]['BIRT']).days/365
+            individuals[families[indi]['HUSB']]['DIV_AGE'] = int((divorced - individuals[families[indi]['HUSB']]['BIRT']).days/365)
+            individuals[families[indi]['WIFE']]['DIV_AGE'] = int((divorced - individuals[families[indi]['WIFE']]['BIRT']).days/365)
 
-        individuals[families[indi]['HUSB']]['MARR_AGE'] = (marriage - individuals[families[indi]['HUSB']]['BIRT']).days/365
-        individuals[families[indi]['WIFE']]['MARR_AGE'] = (marriage - individuals[families[indi]['WIFE']]['BIRT']).days/365
+        individuals[families[indi]['HUSB']]['MARR_AGE'] = int((marriage - individuals[families[indi]['HUSB']]['BIRT']).days/365)
+        individuals[families[indi]['WIFE']]['MARR_AGE'] = int((marriage - individuals[families[indi]['WIFE']]['BIRT']).days/365)
         
         if 'DIV' not in families[indi].keys():
             families[indi]['DIV'] = "N/A"
