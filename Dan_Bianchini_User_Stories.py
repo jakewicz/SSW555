@@ -8,7 +8,6 @@ def US02_born_after_married(indi, individuals):
     if individuals[indi]['MARR_AGE'] != 'N/A':
         if individuals[indi]['MARR_AGE'] < 0:
             individuals[indi]['MARR_AGE'] = "INVALID"
-            print("ERROR US02: ", individuals[indi]['NAME'], " born after being married")
             return True
     return False
 
@@ -22,7 +21,6 @@ def US03_death_before_birth(indi, individuals):
     birth = datetime.strptime(individuals[indi]['BIRT'], '%d %b %Y')
     diff = int((death - birth).days / 365)
     if diff < 0:
-        print("ERROR US03: ", individuals[indi]['NAME'], " died before birth")
         return True
     return False
 
@@ -39,7 +37,6 @@ def US08_born_before_parents_married(indi, individuals, families):
         return False
     marriage = datetime.strptime(families[individuals[indi]['FAMC']]['MARR'], '%d %b %Y')
     if birth < marriage:
-        print("ERROR: US08",indi, ':', individuals[indi]['NAME'], "born before parents married")
         return True
     return False
 
@@ -57,10 +54,8 @@ def US12_parents_too_old(indi, individuals, families):
     father_diff = int((birth-father_birth).days / 365)
     mother_diff = int((birth-mother_birth).days / 365)
     if father_diff >= 80:
-        print("ERROR: US12 father of", indi, individuals[indi]['NAME'], "is 80 years or more older than ", individuals[indi]['NAME'])
         return True
     if mother_diff >= 60:
-        print("ERROR: US12 mother of", indi, individuals[indi]['NAME'], "is 60 years or more older than ", individuals[indi]['NAME'])
         return True
     return False
 
@@ -70,7 +65,7 @@ def US12_parents_too_old(indi, individuals, families):
 # author DB
 # lists living individuals over 30 who have never married
 def US31_list_living_single(individuals):
-    print("US 31: List of every individual over 30 who has never married:")
+    print("\nUS 31: List of every individual over 30 who has never married:")
     for indi in individuals:
         if individuals[indi]['FAMS'] == 'N/A' and individuals[indi]['AGE'] > 30:
             print(individuals[indi]['NAME'])
@@ -79,7 +74,7 @@ def US31_list_living_single(individuals):
 # author DB
 # interpretation A: list all sets of tuplets (twins, triplets, etc.)
 def US32_list_multiple_births(individuals, families):
-    print("US 32: list multiple births:")
+    print("\nUS 32: list multiple births:")
     for fam in families:
         birthdays = {}
         if families[fam]['CHIL'] == 'N/A':
@@ -106,3 +101,42 @@ def US32_list_multiple_births(individuals, families):
                 for child in birthdays[birth]:
                     print(individuals[child]['NAME'], end =", ")
                 print()
+
+# ========================== SPRINT 4 ============================
+
+# US 09
+# author DB
+# returns true if individual was born after the death of his/her parents
+def US09_born_after_parents_death(indi, individuals, families):
+    birth = datetime.strptime(individuals[indi]['BIRT'], '%d %b %Y')
+    if individuals[indi]['FAMC'] not in families.keys():
+        return False
+    father_id = families[individuals[indi]['FAMC']]['HUSB']
+    mother_id = families[individuals[indi]['FAMC']]['WIFE']
+    if individuals[father_id]['DEAT'] != "N/A":
+        father_death = datetime.strptime(individuals[father_id]['DEAT'], '%d %b %Y')
+        if father_death < birth:
+            return True
+    if individuals[mother_id]['DEAT'] != "N/A":
+        mother_death = datetime.strptime(individuals[mother_id]['DEAT'], '%d %b %Y')
+        if mother_death < birth:
+            return True
+    return False
+
+# US 23
+# author DB
+# lists individual IDs that have the same name and birthday
+def US23_unique_name_and_birthday(individuals):
+    data = {}
+    for indi in individuals.keys():
+        info = (individuals[indi]['NAME'], individuals[indi]['BIRT'])
+        if info not in data.keys():
+            data[info] = [indi]
+        else:
+            data[info].append(indi)
+    for x in data.keys():
+        if len(data[x]) < 2:
+            continue
+        print("\nERROR US23: multiple individuals with name ", x[0], " and birthday ", x[1], ", IDs:")
+        for indi in data[x]:
+            print(indi)
