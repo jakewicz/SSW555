@@ -82,6 +82,12 @@
 1 BIRT
 2 DATE 7 AUG 1960
 1 FAMC @F5@
+0 @I7@ INDI
+1 NAME Greg2 /Fisher/
+2 GIVN Greg2
+1 SEX M
+1 BIRT
+2 DATE 7 AUG 1960
 0 @I8@ INDI
 1 NAME Mitch /Chlus/
 2 GIVN Mitch
@@ -390,6 +396,7 @@
 1 DEAT
 2 DATE 25 FEB 2018
 1 FAMS @F13@
+1 FAMS @F22@
 0 @I56@ INDI
 1 NAME Drogoo /Najjar/
 2 GIVN Drogoo

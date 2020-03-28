@@ -25,17 +25,15 @@ def US14_quintuplets(indi, families):
                 if (counter >6):
                     return ("ERROR: more than 5 kids born at once")
 
-#US28
+#US29
 #author JC
 #list the deceased
 def US29_the_deceased(individuals):
-    dead = {}
+    print("US 29: List of the deceased:")
     for indi in individuals:
         if(individuals[indi]['ALIVE'] == 'False'):
-            dead[individuals[indi]['ID']] = individuals[indi]['NAME']
-        else:
-            continue
-    return dead
+            print(individuals[indi]['NAME'])
+
 
 #We Need these two lines to read in file and add to ages
 #Adds to age dictionary

@@ -32,6 +32,15 @@ class Test(unittest.TestCase):
     def test_US21(self):
         for indi in families:
             self.assertEqual(US21_correct_gender(indi, families, individuals), None, indi)
+    def test_US07(self):
+        for indi in individuals:
+            self.assertEquals(US07_check150(indi, individuals), None, indi)
+    def test_US06(self):
+        for indi in individuals:
+            self.assertEquals(US06_divorce_before_death(indi, individuals), None, indi)
+    def test_US29(self):
+        for indi in individuals:
+            self.assertEquals(US29_the_deceased(indi, individuals), None, indi)
 
 if __name__ == '__main__':
     #this calls the automatic tests

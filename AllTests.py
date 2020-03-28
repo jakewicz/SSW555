@@ -46,12 +46,7 @@ def US14_test_quin(indi, families):
     if (US14_quintuplets(indi, families) == "ERROR: more than 5 kids born at once"):
         print( "ERROR: US14", indi, ": family has more than 5 children born at the same time")
 
-def US29_test_the_deceased(individuals):
-    result = US29_the_deceased(individuals)
-    if ("ERROR: US29" in result):
-        return result
-    else:
-        return "The deceased: " + str(result)
+#US27: Age is tested in our dictionary and is printed with every individual
 
 def US08_test_born_before_marr(indi, individuals, families):
     US08_born_before_parents_married(indi, individuals, families)
@@ -74,6 +69,12 @@ def US31_test(individuals):
 def US32_test(individuals, families):
     US32_list_multiple_births(individuals, families)
 
+def US33_test(indi, individuals, families):
+    US33_the_orphans(indi, individuals, families)
+
+def US22_test(indi, individuals):
+    US22_Unique_IDs(indi, individuals)
+
 for indi in individuals:
     US01_test_check_current_date(indi, individuals)
     US02_test_marriage_after_birth(indi, individuals)
@@ -90,6 +91,7 @@ for indi in families:
     US14_test_quin(indi, families)
     US15_test_child_max(indi, families)
     US21_test_gender(indi, families, individuals)
-print(US29_test_the_deceased(individuals))
+US29_the_deceased(individuals)
 US31_list_living_single(individuals)
 US32_list_multiple_births(individuals, families)
+US33_the_orphans(indi, individuals, families)

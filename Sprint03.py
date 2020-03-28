@@ -1,5 +1,6 @@
 from UsefulFunctions import *
 from Parser import *
+from collections import defaultdict
 
 #US 34
 #author GM
@@ -24,3 +25,22 @@ def US21_correct_gender(indi, families, individuals):
     if 'HUSB' in families[indi].keys():
         if individuals[families[indi]['HUSB']]['SEX'] != 'M':
             return('ERROR: US21 wrong gender for role')
+
+#US 33
+#author JC
+#List Orphans
+def US33_the_orphans(indi, families, individuals):
+    if 20 == "WIFE":
+        print("hello")
+
+#US 22
+#author JC
+#Unique IDS
+def US22_Unique_IDs(indi, individuals):
+    holder = defaultdict(int)
+    for indi in individuals:
+        print(individuals[indi]['ID'])
+        holder[individuals[indi]['ID']] += 1 
+    for val in holder:
+        if holder[val] > 1:
+            return ("Error: US22 Not all individuals have a unique ID" + val)
