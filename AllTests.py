@@ -2,6 +2,7 @@
 from Sprint02 import *
 from Sprint01 import *
 from Sprint03 import *
+from Dan_Bianchini_User_Stories import *
 
 #sprint 1 tests
 def US02_test_marriage_after_birth(indi, individuals):
@@ -52,6 +53,12 @@ def US29_test_the_deceased(individuals):
     else:
         return "The deceased: " + str(result)
 
+def US08_test_born_before_marr(indi, individuals, families):
+    US08_born_before_parents_married(indi, individuals, families)
+
+def US12_test_parents_too_old(indi, individuals, families):
+    US12_parents_too_old(indi, individuals, families)
+
 #tests for sprint 3
 def US21_test_gender(indi, families, individuals):
     if (US21_correct_gender(indi, families, individuals) == 'ERROR: US21 wrong gender for role'):
@@ -60,6 +67,12 @@ def US21_test_gender(indi, families, individuals):
 def US34_test_age_diff(indi, individuals):
     if (US34_age_difference(indi, individuals) == 'ERROR: US34 large age difference in married couple'):
         print( "ERROR: US34", indi, ": age difference too big, one partner was twice the age of the other when married")
+
+def US31_test(individuals):
+    US31_list_living_single(individuals)
+
+def US32_test(individuals, families):
+    US32_list_multiple_births(individuals, families)
 
 for indi in individuals:
     US01_test_check_current_date(indi, individuals)
@@ -71,8 +84,12 @@ for indi in individuals:
     US07_test_check150(indi, individuals)
     US10_test_young_marriage(indi, individuals)
     US34_test_age_diff(indi, individuals)
+    US08_test_born_before_marr(indi, individuals, families)
+    US12_test_parents_too_old(indi, individuals, families)
 for indi in families:
     US14_test_quin(indi, families)
     US15_test_child_max(indi, families)
     US21_test_gender(indi, families, individuals)
 print(US29_test_the_deceased(individuals))
+US31_list_living_single(individuals)
+US32_list_multiple_births(individuals, families)

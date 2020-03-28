@@ -39,7 +39,7 @@ def US08_born_before_parents_married(indi, individuals, families):
         return False
     marriage = datetime.strptime(families[individuals[indi]['FAMC']]['MARR'], '%d %b %Y')
     if birth < marriage:
-        print("ERROR US08: ", individuals[indi]['NAME'], " born before parents married")
+        print("ERROR: US08",indi, ':', individuals[indi]['NAME'], "born before parents married")
         return True
     return False
 
@@ -54,13 +54,13 @@ def US12_parents_too_old(indi, individuals, families):
         return False
     father_birth = datetime.strptime(individuals[families[individuals[indi]['FAMC']]['HUSB']]['BIRT'], '%d %b %Y')
     mother_birth = datetime.strptime(individuals[families[individuals[indi]['FAMC']]['WIFE']]['BIRT'], '%d %b %Y')
-    father_diff = int((father_birth - birth).days / 365)
-    mother_diff = int((mother_birth - birth).days / 365)
+    father_diff = int((birth-father_birth).days / 365)
+    mother_diff = int((birth-mother_birth).days / 365)
     if father_diff >= 80:
-        print("ERROR US12: father of ", individuals[indi]['NAME'], " is 80 years or more older than ", individuals[indi]['NAME'])
+        print("ERROR: US12 father of", indi, individuals[indi]['NAME'], "is 80 years or more older than ", individuals[indi]['NAME'])
         return True
     if mother_diff >= 60:
-        print("ERROR US12: mother of ", individuals[indi]['NAME'], " is 60 years or more older than ", individuals[indi]['NAME'])
+        print("ERROR: US12 mother of", indi, individuals[indi]['NAME'], "is 60 years or more older than ", individuals[indi]['NAME'])
         return True
     return False
 
