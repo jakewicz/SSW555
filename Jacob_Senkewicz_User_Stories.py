@@ -16,7 +16,7 @@ def US16_get_last_names(indi,individuals):
         print(lastName)
     return names
 #____________________________________________US18______________________________________________________________________________
-def US18_siblings_should_not_marry(individuals, families):
+def US18_siblings_should_not_marry(indi,individuals,families):
     for indi in individuals:
         if individuals[indi]['FAMC'] != 'N/A':
             if individuals[indi]['SPOUSE'] != 'N/A':
