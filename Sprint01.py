@@ -1,23 +1,5 @@
 from UsefulFunctions import *
 
-#checking if person was born before married
-def US02_marriage_after_birth(indi, individuals):
-    if individuals[indi]['MARR_AGE'] != 'N/A':
-        if(individuals[indi]['MARR_AGE'] < 0 ):
-            individuals[indi]['MARR_AGE'] = "INVALID"
-            return("ERROR: married before born")
-        else:
-            return("Marriage date valid")
-    else:
-        return("no marriage date")
-
-#birth before death
-def US03_birth_before_death(indi, individuals):
-    if(individuals[indi]['AGE'] >= 0):
-        return "valid"
-    else:
-        return "Error: death date cannot be before birth date"
-
 #author JC
 #checks to see if person is less than 150 years old
 def US07_check150(indi, individuals):
