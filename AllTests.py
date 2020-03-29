@@ -124,7 +124,7 @@ for indi in individuals:
     US09_test_born_after_parents_death(indi, individuals, families)
     US17_test_dont_marry_children(indi, individuals, families)
     US18_test_siblings_should_not_marry(indi, individuals, families)
-    #US16_test_get_last_names(indi, individuals)
+    US16_test_get_last_names(indi, individuals)
     US33_the_orphans(indi, individuals, families)
 
 for indi in families:
