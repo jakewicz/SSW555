@@ -46,6 +46,9 @@ class Test(unittest.TestCase):
     def test_US16(self):
         for indi in individuals:
             self.assertEqual(US16_get_last_names(indi,individuals), None, indi)
+    def US18_automated_test(self):
+        for indi in individuals:
+            self.assertEqual(US18_siblings_should_not_marry(indi,individual,families), indi)
     def test_US02(self):
         for indi in individuals:
             self.assertEqual(US02_born_after_married(indi, individuals), None, indi)
