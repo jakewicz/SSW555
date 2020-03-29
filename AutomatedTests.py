@@ -51,13 +51,14 @@ class Test(unittest.TestCase):
     def test_US29(self):
             self.assertEqual(US29_the_deceased(individuals), None)
     def test_US16(self):
-        for indi in individuals:
-            self.assertEqual(US16_get_last_names(indi,individuals), None, indi)
+            self.assertEqual(US16_get_last_names(individuals), None, indi)
+   def US17_automated_test(self):
+        for fam in families:
+            self.assertEqual(get_last_names(individuals), None, fam)
     def test_US18(self):
-        for indi in individuals:
-            self.assertEqual(US18_siblings_should_not_marry(indi,individuals,families),None, indi)
+        for fam in families:
+            self.assertEqual(US18_siblings_should_not_marry(individuals,families),None, fam)
     def test_US30(self):
-        for indi in individuals:
             self.assertEqual(US30_list_living_married(individuals),None,indi)
     def test_US02(self):
         for indi in individuals:
