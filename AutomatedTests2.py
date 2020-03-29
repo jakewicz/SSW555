@@ -61,7 +61,7 @@ class Test(unittest.TestCase):
 			'@I1@': {'FAMS':'@F2@'},
 			'@I2@': {'FAMS':'@F2@'}
 		}
-		families = {'@F1@': {'HUSB': '@I1@', 'WIFE': '@I3@', 'CHIL': '@I3@'}}
+		families = {'@F1@': {'HUSB': '@I1@', 'WIFE': '@I2@', 'CHIL': '@I2@'}}
 		self.assertTrue(US17_dont_marry_children('@I1@', individuals, families))
 	
 	def test_US18(self):
