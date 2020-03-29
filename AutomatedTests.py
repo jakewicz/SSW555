@@ -52,7 +52,7 @@ class Test(unittest.TestCase):
             self.assertEqual(US29_the_deceased(individuals), None)
     def test_US16(self):
             self.assertEqual(US16_get_last_names(individuals), None, indi)
-   def US17_automated_test(self):
+   def test_US17(self):
         for fam in families:
             self.assertEqual(get_last_names(individuals), None, fam)
     def test_US18(self):
