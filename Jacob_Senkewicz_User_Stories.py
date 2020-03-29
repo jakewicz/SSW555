@@ -42,15 +42,18 @@ def US17_dont_marry_children(indi, individuals, families):
                     return True
     return False
 
-
-
 #_________________________________________________________________________________________________________________________________
-def US18_siblings_should_not_marry(individuals,families):
-    for fam in families:
-        dad = families[fam]['HUSB']
-        mom = families[fam]["WIFE"]
-        dad_fam = individuals[dad]['FAMC']
-        mom_fam = individuals[mom]['FAMC']
-        if mom_fam == dad_fam:
-            print("ERROR US18: You cannot marry your siblings, that is incest.")
-    return dad
+def US18_siblings_should_not_marry(indi, individuals, families):
+    if individuals[indi]['FAMS'] == 'N/A':
+        return False
+    for indi in individuals:
+        if individuals[indi]['FAMC'] not in families.keys():
+            return False
+        for child in families[individuals[indi]['FAMC']]['CHIL']:
+            if child == indi:
+                continue
+            if individuals[child]['FAMS'] != 'N/A':
+                for fam in individuals[child]['FAMS']:
+                    if fam in individuals[indi]['FAMS']:
+                        return True
+    return False
