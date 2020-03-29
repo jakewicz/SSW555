@@ -28,7 +28,7 @@ def US14_quintuplets(indi, families):
 #US29
 #author JC
 #list the deceased
-def US29_the_deceased(individuals):
+def US29_the_deceased(indi, individuals):
     print("US 29: List of the deceased:")
     for indi in individuals:
         if(individuals[indi]['ALIVE'] == 'False'):

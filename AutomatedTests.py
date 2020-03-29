@@ -3,6 +3,8 @@ import unittest
 from Sprint02 import *
 from Sprint01 import *
 from Sprint03 import *
+from Dan_Bianchini_User_Stories import *
+from Jacob_Senkewicz_User_Stories import *
 
 #format sample
     #def test_US##(self):
@@ -34,19 +36,28 @@ class Test(unittest.TestCase):
             self.assertEqual(US21_correct_gender(indi, families, individuals), None, indi)
     def test_US07(self):
         for indi in individuals:
-            self.assertEquals(US07_check150(indi, individuals), None, indi)
+            self.assertEqual(US07_check150(indi, individuals), None, indi)
     def test_US06(self):
         for indi in individuals:
-            self.assertEquals(US06_divorce_before_death(indi, individuals), None, indi)
+            self.assertEqual(US06_divorce_before_death(indi, individuals), None, indi)
     def test_US29(self):
         for indi in individuals:
-            self.assertEquals(US29_the_deceased(indi, individuals), None, indi)
-    def US16_automated_test(self):
-        for indi in families:
-            self.assertEqual(dont_marry_children(indi,families), none, indi)
-    def US17_automated_test(self):
+            self.assertEqual(US29_the_deceased(indi, individuals), None, indi)
+    def test_US16(self):
         for indi in individuals:
-            self.assertEqual(get_last_names(indi,individuals), none, indi)
+            self.assertEqual(US16_get_last_names(indi,individuals), None, indi)
+    def test_US02(self):
+        for indi in individuals:
+            self.assertEqual(US02_born_after_married(indi, individuals), None, indi)
+    def test_US03(self):
+        for indi in individuals:
+            self.assertEqual(US03_death_before_birth(indi, individuals), None, indi)
+    def test_US08(self):
+        for indi in individuals:
+            self.assertEqual(US08_born_before_parents_married(indi, individuals, families), None, indi)
+    def test_US12(self):
+        for indi in individuals:
+            self.assertEqual(US12_parents_too_old(indi, individuals, families), None, indi)
 
 if __name__ == '__main__':
     #this calls the automatic tests
