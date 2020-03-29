@@ -41,6 +41,12 @@ class Test(unittest.TestCase):
     def test_US29(self):
         for indi in individuals:
             self.assertEquals(US29_the_deceased(indi, individuals), None, indi)
+    def US16_automated_test(self):
+        for indi in families:
+            self.assertEqual(dont_marry_children(indi,families), none, indi)
+    def US17_automated_test(self):
+        for indi in individuals:
+            self.assertEqual(get_last_names(indi,individuals), none, indi)
 
 if __name__ == '__main__':
     #this calls the automatic tests
