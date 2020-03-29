@@ -6,6 +6,8 @@ from Sprint03 import *
 from Dan_Bianchini_User_Stories import *
 from Jacob_Senkewicz_User_Stories import *
 
+#in Parser.py change the file name to auto.ged to run the tests expecting no errors so mostly 'None' as outputs
+
 #format sample
     #def test_US##(self):
         #for indi in (families or individuals):
@@ -22,6 +24,12 @@ from Jacob_Senkewicz_User_Stories import *
 #IF YOU DONT GET THAT, IT DOESNT WORK
 
 class Test(unittest.TestCase):
+    def test_US04(self):
+        for indi in individuals:
+            self.assertEqual(US04_married_before_div(indi, individuals), 'valid', indi)
+    def test_US05(self):
+        for indi in individuals:
+            self.assertEqual(US05_married_before_death(indi, individuals), 'valid', indi)
     def test_US15(self):
         for indi in families:
             self.assertEqual(US15_child_max(indi, families), None, indi)
@@ -41,8 +49,7 @@ class Test(unittest.TestCase):
         for indi in individuals:
             self.assertEqual(US06_divorce_before_death(indi, individuals), None, indi)
     def test_US29(self):
-        for indi in individuals:
-            self.assertEqual(US29_the_deceased(indi, individuals), None, indi)
+            self.assertEqual(US29_the_deceased(individuals), None)
     def test_US16(self):
         for indi in individuals:
             self.assertEqual(US16_get_last_names(indi,individuals), None, indi)
@@ -54,16 +61,16 @@ class Test(unittest.TestCase):
             self.assertEqual(US30_list_living_married(individuals),None,indi)
     def test_US02(self):
         for indi in individuals:
-            self.assertEqual(US02_born_after_married(indi, individuals), None, indi)
+            self.assertEqual(US02_born_after_married(indi, individuals), False, indi)
     def test_US03(self):
         for indi in individuals:
-            self.assertEqual(US03_death_before_birth(indi, individuals), None, indi)
+            self.assertEqual(US03_death_before_birth(indi, individuals), False, indi)
     def test_US08(self):
         for indi in individuals:
-            self.assertEqual(US08_born_before_parents_married(indi, individuals, families), None, indi)
+            self.assertEqual(US08_born_before_parents_married(indi, individuals, families), False, indi)
     def test_US12(self):
         for indi in individuals:
-            self.assertEqual(US12_parents_too_old(indi, individuals, families), None, indi)
+            self.assertEqual(US12_parents_too_old(indi, individuals, families), False, indi)
 
 if __name__ == '__main__':
     #this calls the automatic tests

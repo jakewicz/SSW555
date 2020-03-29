@@ -106,8 +106,8 @@ def US23_test_unique_name_and_birthday(individuals):
 
 for indi in individuals:
     US01_test_check_current_date(indi, individuals)
-    US02_test_marriage_after_birth(indi, individuals)
-    US03_test_birth_before_death(indi, individuals)
+    US02_test_born_after_married(indi, individuals)
+    US03_test_death_before_birth(indi, individuals)
     US04_test_married_before_div(indi, individuals)
     US05_test_married_before_death(indi, individuals)
     US06_test_divorce_before_death(indi, individuals)
@@ -118,7 +118,7 @@ for indi in individuals:
     US12_test_parents_too_old(indi, individuals, families)
     US09_test_born_after_parents_death(indi, individuals, families)
     
-    US18_test(indi,individuals,family)
+    US18_test(indi,individuals,families)
 
 for indi in families:
     US14_test_quin(indi, families)
@@ -130,5 +130,5 @@ US31_test_list_living_single(individuals)
 US32_test_list_multiple_births(individuals, families)
 US33_the_orphans(indi, individuals, families)
 US23_test_unique_name_and_birthday(individuals)
-US16_test(individuals)
-US30_test(individuals)
+#US16_test(individuals)
+#US30_test(individuals)
