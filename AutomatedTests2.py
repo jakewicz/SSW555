@@ -1,9 +1,12 @@
 import unittest
+import Parser
 from Sprint01 import *
 from Sprint02 import *
 from Sprint03 import *
 from Dan_Bianchini_User_Stories import *
 from Jacob_Senkewicz_User_Stories import *
+
+individuals_ged, families_ged = Parser.read_file("./test.ged")
 
 class Test(unittest.TestCase):
 	def test_US02(self):
