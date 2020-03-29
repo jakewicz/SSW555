@@ -24,20 +24,26 @@ def US30_list_living_married(individuals):
             
  #_____________________________________________________________________________________________________________________________
 #Sprint 03
-def US17_dont_marry_children(families):
-    marryChild = []
-    for fam in families:
-        if "CHIL" in families[fam]:
-            for child in families[fam]["CHIL"]:
-                if child == families[fam]["HUSB"]:
-                    print (families[fam]["HUSB"])    
-                    marryChild.append("ERROR US17: You cannot marry your children!")
-                elif child == families[fam]["WIFE"]:
-                    print ("ERROR US17: You cannot marry your children!")
-                    marryChild.append(families[fam]["WIFE"])
-                else:
-                    continue
-    return marryChild
+def US17_dont_marry_children(indi, individuals, families):
+    if individuals[indi]['FAMS'] == 'N/A':
+        return False
+    if len(individuals[indi]['FAMS']) < 2:
+        return False
+    for fam in individuals[indi]['FAMS']:
+        if fam not in families.keys():
+            continue
+        if families[fam]['CHIL'] == 'N/A':
+            continue
+        for child in families[fam]['CHIL']:
+            if individuals[child]['FAMS'] == 'N/A':
+                continue
+            for child_fam in individuals[child]['FAMS']:
+                if child_fam in individuals[indi]['FAMS']:
+                    return True
+    return False
+
+
+
 #_________________________________________________________________________________________________________________________________
 def US18_siblings_should_not_marry(individuals,families):
     for fam in families:
