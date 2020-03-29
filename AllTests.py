@@ -115,6 +115,8 @@ for indi in individuals:
     US08_test_born_before_marr(indi, individuals, families)
     US12_test_parents_too_old(indi, individuals, families)
     US09_test_born_after_parents_death(indi, individuals, families)
+    US16_test(individuals)
+    US18_test(indi,individuals,family)
 
 for indi in families:
     US14_test_quin(indi, families)
