@@ -7,7 +7,6 @@ from datetime import datetime
 def US02_born_after_married(indi, individuals):
     if individuals[indi]['MARR_AGE'] != 'N/A':
         if individuals[indi]['MARR_AGE'] < 0:
-            individuals[indi]['MARR_AGE'] = "INVALID"
             return True
     return False
 
@@ -31,8 +30,6 @@ def US03_death_before_birth(indi, individuals):
 # returns true if individual was born before his/her parents were married
 def US08_born_before_parents_married(indi, individuals, families):
     birth = datetime.strptime(individuals[indi]['BIRT'], '%d %b %Y')
-    if individuals[indi]['FAMC'] == 'N/A':
-        return False
     if individuals[indi]['FAMC'] not in families.keys():
         return False
     marriage = datetime.strptime(families[individuals[indi]['FAMC']]['MARR'], '%d %b %Y')
@@ -45,8 +42,6 @@ def US08_born_before_parents_married(indi, individuals, families):
 # returns true if parents are too old (80 years older for father, 60 years for mother)
 def US12_parents_too_old(indi, individuals, families):
     birth = datetime.strptime(individuals[indi]['BIRT'], '%d %b %Y')
-    if individuals[indi]['FAMC'] == 'N/A':
-        return False
     if individuals[indi]['FAMC'] not in families.keys():
         return False
     father_birth = datetime.strptime(individuals[families[individuals[indi]['FAMC']]['HUSB']]['BIRT'], '%d %b %Y')
