@@ -19,17 +19,19 @@ def US16_get_last_names(indi,individuals):
 #US 17
 #author JS
 #Alerts when an individual marries child
-def US17_dont_marry_children(indi,families):
+def US17_dont_marry_children(families):
+    fam = families[indi]
     marryChild = []
-    if "CHIL" in fam.keys():
-        for child in fam["CHIL"]:
-            if child == fam["HUSB"]:
-                print ("ERROR US17: You cannot marry your children!")    
-                marryChild.append("ERROR US17: You cannot marry your children!")
-            if child == fam["WIFE"]:
-                print ("ERROR US17: You cannot marry your children!")
-                marryChild.append("ERROR US17: You cannot marry your children!")
-            else:
-                continue
+    for fam in families:
+        if "CHIL" in families[fam].keys():
+            for child in families[fam]["CHIL"]:
+                if child == families[fam]["HUSB"]:
+                    print ("ERROR US17: You cannot marry your children!")    
+                    marryChild.append("ERROR US17: You cannot marry your children!")
+                if child == families[fam]["WIFE"]:
+                    print ("ERROR US17: You cannot marry your children!")
+                    marryChild.append("ERROR US17: You cannot marry your children!")
+                else:
+                    continue
     return marryChild
 #_____________________________________________________________________________________________________________________________
