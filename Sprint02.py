@@ -33,9 +33,3 @@ def US29_the_deceased(individuals):
     for indi in individuals:
         if(individuals[indi]['ALIVE'] == 'False'):
             print(individuals[indi]['NAME'])
-
-
-#We Need these two lines to read in file and add to ages
-#Adds to age dictionary
-individuals, families =read_file('./test.ged')
-individuals = UsefulFunctions.age_bank(families, individuals)

@@ -1,5 +1,4 @@
 from UsefulFunctions import *
-from Parser import *
 
 #checking if person was born before married
 def US02_marriage_after_birth(indi, individuals):
@@ -76,8 +75,3 @@ def US04_married_before_div(indi, individuals):
                 return "valid"
             else:
                 return "Error: marriage date after divorce date"
-
-#We Need these two lines to read in file and add to ages
-#Adds to age dictionary
-individuals, families =read_file('./test.ged')
-individuals = UsefulFunctions.age_bank(families, individuals)
