@@ -6,12 +6,12 @@ from Dan_Bianchini_User_Stories import *
 
 #sprint 1 tests
 def US02_test_marriage_after_birth(indi, individuals):
-    if(US02_marriage_after_birth(indi, individuals) == "ERROR: married before born"):
-        print("ERROR: US02", indi, ": married before born")
+    if US02_marriage_after_birth(indi, individuals):
+        print("ERROR US02: ", individuals[indi]['NAME'], " married before born")
 
 def US03_test_birth_before_death(indi, individuals):
-    if(US03_birth_before_death(indi, individuals)== "Error: death date cannot be before birth date"):
-        print("ERROR: US03", indi,  ": death date cannot be before birth date")
+    if US03_birth_before_death(indi, individuals):
+        print("ERROR US03: ", individuals[indi]['NAME'],  " death date cannot be before birth date")
 
 def US07_test_check150(indi, individual):
     if (US07_check150(indi, individual) == "Error: Too Old"):
@@ -49,10 +49,12 @@ def US14_test_quin(indi, families):
 #US27: Age is tested in our dictionary and is printed with every individual
 
 def US08_test_born_before_marr(indi, individuals, families):
-    US08_born_before_parents_married(indi, individuals, families)
+    if US08_born_before_parents_married(indi, individuals, families):
+        print("ANOMALY US08: ", individuals[indi]['NAME'], " born before parents were married")
 
 def US12_test_parents_too_old(indi, individuals, families):
-    US12_parents_too_old(indi, individuals, families)
+    if US12_parents_too_old(indi, individuals, families):
+        print("ERROR US12: ", individuals[indi]['NAME'], " parent(s) too old")
 
 #tests for sprint 3
 def US21_test_gender(indi, families, individuals):
@@ -63,10 +65,10 @@ def US34_test_age_diff(indi, individuals):
     if (US34_age_difference(indi, individuals) == 'ERROR: US34 large age difference in married couple'):
         print( "ERROR: US34", indi, ": age difference too big, one partner was twice the age of the other when married")
 
-def US31_test(individuals):
+def US31_test_list_living_single(individuals):
     US31_list_living_single(individuals)
 
-def US32_test(individuals, families):
+def US32_test_list_multiple_births(individuals, families):
     US32_list_multiple_births(individuals, families)
 
 def US33_test(indi, individuals, families):
@@ -74,6 +76,17 @@ def US33_test(indi, individuals, families):
 
 def US22_test(indi, individuals):
     US22_Unique_IDs(indi, individuals)
+
+# tests for sprint 4
+
+def US09_test_born_after_parents_death(indi, individuals, families):
+    if US09_born_after_parents_death(indi, individuals, families):
+        print("ERROR US09: ", individuals[indi]['NAME'], " born after one or more parents died")
+
+def US23_test_unique_name_and_birthday(individuals):
+    US23_unique_name_and_birthday(individuals)
+
+# call all test functions properly
 
 for indi in individuals:
     US01_test_check_current_date(indi, individuals)
@@ -87,11 +100,15 @@ for indi in individuals:
     US34_test_age_diff(indi, individuals)
     US08_test_born_before_marr(indi, individuals, families)
     US12_test_parents_too_old(indi, individuals, families)
+    US09_test_born_after_parents_death(indi, individuals, families)
+
 for indi in families:
     US14_test_quin(indi, families)
     US15_test_child_max(indi, families)
     US21_test_gender(indi, families, individuals)
+
 US29_the_deceased(individuals)
-US31_list_living_single(individuals)
-US32_list_multiple_births(individuals, families)
+US31_test_list_living_single(individuals)
+US32_test_list_multiple_births(individuals, families)
 US33_the_orphans(indi, individuals, families)
+US23_test_unique_name_and_birthday(individuals)
