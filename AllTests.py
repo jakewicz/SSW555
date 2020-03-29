@@ -3,6 +3,7 @@ from Sprint02 import *
 from Sprint01 import *
 from Sprint03 import *
 from Dan_Bianchini_User_Stories import *
+from Jacob_Senkewicz_User_Stories import *
 
 #sprint 1 tests
 def US02_test_born_after_married(indi, individuals):
