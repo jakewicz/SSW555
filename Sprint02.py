@@ -12,7 +12,7 @@ def US15_child_max(indi, families):
 #US14
 #author GM
 #no more than 5 kids born at once
-def US14_quintuplets(indi, families):
+def US14_quintuplets(indi, families, individuals):
     if 'CHIL' in families[indi].keys():
         if len(families[indi]['CHIL']) >5:
             #family has more than 5 kids

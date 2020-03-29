@@ -46,8 +46,8 @@ def US15_test_child_max(indi, families):
     if (US15_child_max(indi, families) == "ERROR: too many kids"):
         print( "ERROR: US15", indi, ": family has over 15 children")
 
-def US14_test_quin(indi, families):
-    if (US14_quintuplets(indi, families) == "ERROR: more than 5 kids born at once"):
+def US14_test_quin(indi, families, individuals):
+    if (US14_quintuplets(indi, families, individuals) == "ERROR: more than 5 kids born at once"):
         print( "ERROR: US14", indi, ": family has more than 5 children born at the same time")
 
 #US27: Age is tested in our dictionary and is printed with every individual
@@ -128,7 +128,7 @@ for indi in individuals:
     US33_the_orphans(indi, individuals, families)
 
 for indi in families:
-    #US14_test_quin(indi, families)
+    US14_test_quin(indi, families, individuals)
     US15_test_child_max(indi, families)
     US21_test_gender(indi, families, individuals)
 
