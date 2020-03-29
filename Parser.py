@@ -53,7 +53,10 @@ def read_file(path):
             if (tag == "FAMC"):
                 individuals[ind_id]["FAMC"] = args
             if (tag == "FAMS"):
-                individuals[ind_id]["FAMS"] = args
+                if tag not in individuals[ind_id].keys():
+                    individuals[ind_id]["FAMS"] = [args]
+                else:
+                    individuals[ind_id]['FAMS'].append(args)
             if(tag == "INDI"):
                 ind_id = args
                 individuals[ind_id] = {}
@@ -88,22 +91,13 @@ def read_file(path):
                     families[ind_id][tag].append(args)
 
     ged.close
+    individuals = UsefulFunctions.age_bank(families, individuals)
     return(individuals, families)
 
-#We Need these two lines to read in file and add to ages
-#Adds to age dictionary
-individuals, families =read_file('./test.ged')
-individuals = UsefulFunctions.age_bank(families, individuals)
-
-#Pretty print
-#pp = pprint.PrettyPrinter()
-#pp.pprint(individuals)
-#pp.pprint(families)
-
-
 #printing in table format
-ind_table = pd.DataFrame(individuals).transpose()
-print(tabulate(ind_table, headers='keys', tablefmt='psql'))
+def print_tables(inds, fams):
+    ind_table = pd.DataFrame(inds).transpose()
+    print(tabulate(ind_table, headers='keys', tablefmt='psql'))
 
-fam_table = pd.DataFrame(families).transpose()
-print(tabulate(fam_table, headers='keys', tablefmt='psql'))
+    fam_table = pd.DataFrame(fams).transpose()
+    print(tabulate(fam_table, headers='keys', tablefmt='psql'))
