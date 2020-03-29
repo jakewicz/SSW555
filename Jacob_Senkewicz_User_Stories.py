@@ -6,7 +6,7 @@
 def US16_get_last_names(indi,individuals):
     names = []
     if individuals[indi]['SEX'] == "M":
-        line = individuals["NAME"]
+        line = individuals[indi]["NAME"]
         line = line.strip()
         parse = line.split(' ')
         firstName = parse[0]
