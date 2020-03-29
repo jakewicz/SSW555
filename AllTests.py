@@ -5,12 +5,12 @@ from Sprint03 import *
 from Dan_Bianchini_User_Stories import *
 
 #sprint 1 tests
-def US02_test_marriage_after_birth(indi, individuals):
-    if US02_marriage_after_birth(indi, individuals):
+def US02_test_born_after_married(indi, individuals):
+    if US02_born_after_married(indi, individuals):
         print("ERROR US02: ", individuals[indi]['NAME'], " married before born")
 
-def US03_test_birth_before_death(indi, individuals):
-    if US03_birth_before_death(indi, individuals):
+def US03_test_death_before_birth(indi, individuals):
+    if US03_death_before_birth(indi, individuals):
         print("ERROR US03: ", individuals[indi]['NAME'],  " death date cannot be before birth date")
 
 def US07_test_check150(indi, individual):
