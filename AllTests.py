@@ -57,10 +57,10 @@ def US12_test_parents_too_old(indi, individuals, families):
     if US12_parents_too_old(indi, individuals, families):
         print("ERROR US12: ", individuals[indi]['NAME'], " parent(s) too old")
         
-def US16_test(individuals):
+def US16_test_get_last_names(individuals):
     US16_get_last_names(individuals) 
     
-def US30_test(individuals):
+def US30_test_list_living_married(individuals):
     US30_list_living_married(individuals)
 
 #tests for sprint 3
@@ -84,11 +84,11 @@ def US33_test(indi, individuals, families):
 def US22_test(indi, individuals):
     US22_Unique_IDs(indi, individuals)
 
-def US17_tests(families):
+def US17_test_dont_marry_children(families):
     if US17_dont_marry_children(families) == "ERROR US17: You cannot marry your children!":
         print("Error US17: ", marryChild, "You cannot marry your children!")
 
-def US18_test(individuals,family):
+def US18_test_siblings_should_not_marry(individuals,family):
     if US18_siblings_should_not_marry(individuals,families) == "ERROR US 18: You cannot marry your siblings.":
         print("ERROR US18: ", dad, "You cannot marry your siblings.")
 
@@ -117,8 +117,8 @@ for indi in individuals:
     US08_test_born_before_marr(indi, individuals, families)
     US12_test_parents_too_old(indi, individuals, families)
     US09_test_born_after_parents_death(indi, individuals, families)
-    US17_tests(families)
-    US18_test(individuals,families)
+    US17_test_dont_marry_children(families)
+    US18_test_siblings_should_not_marry(individuals,family)
 
 for indi in families:
     US14_test_quin(indi, families)
@@ -130,5 +130,5 @@ US31_test_list_living_single(individuals)
 US32_test_list_multiple_births(individuals, families)
 US33_the_orphans(indi, individuals, families)
 US23_test_unique_name_and_birthday(individuals)
-US16_test(individuals)
-US30_test(individuals)
+US16_test_get_last_names(individuals)
+US30_test_list_living_married(individuals)
