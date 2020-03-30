@@ -1,5 +1,6 @@
 from UsefulFunctions import *
 from collections import defaultdict
+from datetime import date, datetime
 
 #US 34
 #author GM
@@ -25,21 +26,31 @@ def US21_correct_gender(indi, families, individuals):
         if individuals[families[indi]['HUSB']]['SEX'] != 'M':
             return('ERROR: US21 wrong gender for role')
 
-#US 33
+#US 35
 #author JC
-#List Orphans
-def US33_the_orphans(indi, families, individuals):
-    if 20 == "WIFE":
-        print("hello")
-
-#US 22
-#author JC
-#Unique IDS
-def US22_Unique_IDs(indi, individuals):
-    holder = defaultdict(int)
+#List recent births
+def US35_recent_births(indi, individuals):
+    Rbirth = {}
+    today = datetime.now()
+    print('')
+    print('Births within the last 30 days: ')
     for indi in individuals:
-        print(individuals[indi]['ID'])
-        holder[individuals[indi]['ID']] += 1 
-    for val in holder:
-        if holder[val] > 1:
-            return ("Error: US22 Not all individuals have a unique ID" + val)
+        diff = int((today - datetime.strptime(individuals[indi]['BIRT'], '%d %b %Y')).days)
+        if diff <= 30:
+            Rbirth = individuals[indi]['NAME']
+            print(Rbirth)
+            
+#US 36
+#author JC
+#List recent deaths
+def US35_recent_deaths(indi, individuals):
+    Rdeath = {}
+    today = datetime.now()
+    print('')
+    print('Deaths within the last 30 days: ')
+    for indi in individuals:
+        if individuals[indi]['DEAT'] != 'N/A':
+            diff = int((today - datetime.strptime(individuals[indi]['DEAT'], '%d %b %Y')).days)
+            if diff <= 30:
+                Rdeath = individuals[indi]['NAME']
+                print(Rdeath)
