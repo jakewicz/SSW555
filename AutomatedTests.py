@@ -139,6 +139,26 @@ class Test(unittest.TestCase):
 			'@I2@': {'NAME': 'old', 'SPOUSE': '@I1@', 'MARR_AGE': 45}}
 		self.assertEqual(US34_age_difference('@I1@', individuals), 'ERROR: US34 large age difference in married couple')
 
+	# Dan sprint 4
+	def test_US09(self):
+		individuals ={
+			'@I1@': {'BIRT': '1 JAN 2000', 'FAMC': '@F1@'},
+			'@I2@': {'DEAT': '1 JAN 1990'},
+			'@I3@': {'DEAT': 'N/A'}
+		}
+		families = {'@F1@': {'HUSB': '@I2@', 'WIFE': '@I3@'}}
+		self.assertTrue(US09_born_after_parents_death('@I1@', individuals, families))
+
+	def test_US23(self):
+		print("If 'yes' is printed with no 'no's, US23 works:")
+		individuals = {
+			'@I1@': {'NAME': 'yes', 'BIRT': '1 JAN 2000'},
+			'@I2@': {'NAME': 'yes', 'BIRT': '1 JAN 2000'},
+			'@I3@': {'NAME': 'yes', 'BIRT': '1 JAN 2000'},
+			'@I4@': {'NAME': 'no', 'BIRT': '1 MAR 2000'}
+		}
+		self.assertEqual(US23_unique_name_and_birthday(individuals), None)
+
 # needs to be at the end, don't touch this
 if __name__ == '__main__':
 	unittest.main()
