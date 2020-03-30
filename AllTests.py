@@ -81,11 +81,11 @@ def US31_test_list_living_single(individuals):
 def US32_test_list_multiple_births(individuals, families):
     US32_list_multiple_births(individuals, families)
 
-def US33_test(indi, individuals, families):
-    US33_the_orphans(indi, individuals, families)
+def US35_test_recent_births(indi, individuals):
+    US35_recent_births(indi, individuals)
 
-def US22_test(indi, individuals):
-    US22_Unique_IDs(indi, individuals)
+def US36_test_recent_deaths(indi, individuals):
+    US35_recent_deaths(indi, individuals)    
 
 def US17_test_dont_marry_children(indi, individuals, families):
     if US17_dont_marry_children(indi, individuals, families):
@@ -125,7 +125,6 @@ for indi in individuals:
     US17_test_dont_marry_children(indi, individuals, families)
     US18_test_siblings_should_not_marry(indi, individuals, families)
     US16_test_get_last_names(indi, individuals)
-    US33_the_orphans(indi, individuals, families)
 
 for indi in families:
     US14_test_quin(indi, families, individuals)
@@ -137,3 +136,5 @@ US31_test_list_living_single(individuals)
 US32_test_list_multiple_births(individuals, families)
 US23_test_unique_name_and_birthday(individuals)
 US30_test_list_living_married(individuals)
+US35_recent_births(indi, individuals)
+US35_recent_deaths(indi, individuals)
