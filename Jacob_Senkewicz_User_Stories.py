@@ -13,7 +13,6 @@ def US16_get_last_names(indi,individuals):
         lastName = parse[1]
         lastName = lastName.replace("/", "", 2)
         names.append(lastName)
-        print(lastName)
     return names
 #____________________________________________US30______________________________________________________________________________
 def US30_list_living_married(individuals):
