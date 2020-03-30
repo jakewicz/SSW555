@@ -60,8 +60,8 @@ def US12_test_parents_too_old(indi, individuals, families):
     if US12_parents_too_old(indi, individuals, families):
         print("ERROR US12: ", individuals[indi]['NAME'], " parent(s) too old")
         
-def US16_test_get_last_names(indi, individuals):
-    US16_get_last_names(indi, individuals) 
+def US16_test_get_last_names(individuals):
+    US16_get_last_names(individuals) 
     
 def US30_test_list_living_married(individuals):
     US30_list_living_married(individuals)
@@ -124,13 +124,14 @@ for indi in individuals:
     US09_test_born_after_parents_death(indi, individuals, families)
     US17_test_dont_marry_children(indi, individuals, families)
     US18_test_siblings_should_not_marry(indi, individuals, families)
-    US16_test_get_last_names(indi, individuals)
+    
 
 for indi in families:
     US14_test_quin(indi, families, individuals)
     US15_test_child_max(indi, families)
     US21_test_gender(indi, families, individuals)
 
+US16_test_get_last_names(individuals)
 US29_the_deceased(individuals)
 US31_test_list_living_single(individuals)
 US32_test_list_multiple_births(individuals, families)

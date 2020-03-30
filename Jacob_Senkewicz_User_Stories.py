@@ -3,17 +3,18 @@
 #US 16
 #Author JS
 #Prints all male last names
-def US16_get_last_names(indi,individuals):
+def US16_get_last_names(individuals):
     names = []
-    if individuals[indi]['SEX'] == "M":
-        line = individuals[indi]["NAME"]
-        line = line.strip()
-        parse = line.split(' ')
-        firstName = parse[0]
-        lastName = parse[1]
-        lastName = lastName.replace("/", "", 2)
-        names.append(lastName)
-        print(lastName)
+    for indi in individuals:
+        if individuals[indi]['SEX'] == "M":
+            line = individuals[indi]["NAME"]
+            line = line.strip()
+            parse = line.split(' ')
+            firstName = parse[0]
+            lastName = parse[1]
+            lastName = lastName.replace("/", "", 2)
+            names.append(lastName)
+    print(names)
     return names
 #____________________________________________US30______________________________________________________________________________
 def US30_list_living_married(individuals):
