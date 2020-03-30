@@ -51,6 +51,26 @@ class Test(unittest.TestCase):
 		}
 		families = {'@F1@': {'CHIL': ['@I1@', '@I2@', '@I3@', '@I4@']}}
 		self.assertEqual(US32_list_multiple_births(individuals, families), None)
+
+	def test_US35(self): 
+		print("If ONLY the word 'yes' prints below with no 'no's, US35 works:")
+		individuals = {
+			'@I1@': {'NAME': 'yes', 'BIRT': '20 MAR 2020'},
+			'@I2@': {'NAME': 'yes', 'BIRT': '21 MAR 2020'},
+			'@I3@': {'NAME': 'no', 'BIRT': '1 JAN 2000'},
+			'@I4@': {'NAME': 'no', 'BIRT': '1 MAR 2000'}
+		}
+		self.assertEqual(US35_recent_births(individuals), None)
+
+	def test_US36(self):
+		print("If ONLY the word 'yes' prints below with no 'no's, US36 works:")
+		individuals = {
+			'@I1@': {'NAME': 'yes', 'DEAT': '20 MAR 2020'},
+			'@I2@': {'NAME': 'yes', 'DEAT': '21 MAR 2020'},
+			'@I3@': {'NAME': 'no', 'DEAT': '1 JAN 2000'},
+			'@I4@': {'NAME': 'no', 'DEAT': '1 MAR 2000'}
+		}
+		self.assertEqual(US36_recent_deaths(individuals), None)			
 		
 	def test_US16(self):
 		individuals = {'@I1@':{'SEX': 'F'}}

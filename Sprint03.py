@@ -29,7 +29,7 @@ def US21_correct_gender(indi, families, individuals):
 #US 35
 #author JC
 #List recent births
-def US35_recent_births(indi, individuals):
+def US35_recent_births(individuals):
     Rbirth = {}
     today = datetime.now()
     print('')
@@ -43,7 +43,7 @@ def US35_recent_births(indi, individuals):
 #US 36
 #author JC
 #List recent deaths
-def US35_recent_deaths(indi, individuals):
+def US36_recent_deaths(individuals):
     Rdeath = {}
     today = datetime.now()
     print('')
