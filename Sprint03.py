@@ -33,7 +33,7 @@ def US35_recent_births(individuals):
     Rbirth = {}
     today = datetime.now()
     print('')
-    print('Births within the last 30 days: ')
+    print('\nUS35: Births within the last 30 days: ')
     for indi in individuals:
         diff = int((today - datetime.strptime(individuals[indi]['BIRT'], '%d %b %Y')).days)
         if diff <= 30:
@@ -47,7 +47,7 @@ def US36_recent_deaths(individuals):
     Rdeath = {}
     today = datetime.now()
     print('')
-    print('Deaths within the last 30 days: ')
+    print('\nUS36: Deaths within the last 30 days: ')
     for indi in individuals:
         if individuals[indi]['DEAT'] != 'N/A':
             diff = int((today - datetime.strptime(individuals[indi]['DEAT'], '%d %b %Y')).days)
