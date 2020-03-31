@@ -32,17 +32,17 @@ class Test(unittest.TestCase):
 		self.assertTrue(US12_parents_too_old('@I1@', individuals, families))
 
 	def test_US31(self):
-		print("If ONLY the word 'yes' prints below with no 'no's, US31 works:")
+		print("\nIf ONLY the word 'yes' prints below with no 'no's, US31 works:")
 		individuals = {
 			'@I1@': {'FAMS': 'N/A', 'AGE': 31, 'NAME': 'yes'},
-			'@I2@': {'FAMS': '@F1@', 'AGE': 31, 'NAME': 'no'},
+			'@I2@': {'FAMS': ['@F1@'], 'AGE': 31, 'NAME': 'no'},
 			'@I3@': {'FAMS': 'N/A', 'AGE': 31, 'NAME': 'yes'},
 			'@I4@': {'FAMS': 'N/A', 'AGE': 20, 'NAME': 'no'}
 		}
 		self.assertEqual(US31_list_living_single(individuals), None)
 
 	def test_US32(self):
-		print("If ONLY the word 'yes' prints below with no 'no's, US32 works:")
+		print("\nIf ONLY the word 'yes' prints below with no 'no's, US32 works:")
 		individuals = {
 			'@I1@': {'NAME': 'yes', 'BIRT': '1 JAN 2000'},
 			'@I2@': {'NAME': 'yes', 'BIRT': '1 JAN 2000'},
@@ -53,7 +53,7 @@ class Test(unittest.TestCase):
 		self.assertEqual(US32_list_multiple_births(individuals, families), None)
 
 	def test_US35(self): 
-		print("If ONLY the word 'yes' prints below with no 'no's, US35 works:")
+		print("\nIf ONLY the word 'yes' prints below with no 'no's, US35 works:")
 		individuals = {
 			'@I1@': {'NAME': 'yes', 'BIRT': '20 MAR 2020'},
 			'@I2@': {'NAME': 'yes', 'BIRT': '21 MAR 2020'},
@@ -63,7 +63,7 @@ class Test(unittest.TestCase):
 		self.assertEqual(US35_recent_births(individuals), None)
 
 	def test_US36(self):
-		print("If ONLY the word 'yes' prints below with no 'no's, US36 works:")
+		print("\nIf ONLY the word 'yes' prints below with no 'no's, US36 works:")
 		individuals = {
 			'@I1@': {'NAME': 'yes', 'DEAT': '20 MAR 2020'},
 			'@I2@': {'NAME': 'yes', 'DEAT': '21 MAR 2020'},
@@ -73,32 +73,38 @@ class Test(unittest.TestCase):
 		self.assertEqual(US36_recent_deaths(individuals), None)			
 		
 	def test_US16(self):
-		individuals = {'@I1@':{'SEX': 'F'}}
-		self.assertTrue(US16_get_last_names('@I1@',individuals))
+		families = {'@F1@': {'HUSB': '@I1@', 'CHIL': ['@I2@', '@I3@', '@I4@']}}
+		individuals = {
+			'@I1@': {'NAME': 'Bob /Sagat/'},
+			'@I2@': {'SEX': 'M', 'NAME': 'Frank /Sagat/'},
+			'@I3@': {'SEX': 'M', 'NAME': 'Mike /Tyson/'},
+			'@I4@': {'SEX': 'F', 'NAME': 'Olivia /Tyson/'}}
+		self.assertTrue(US16_get_last_names('@F1@', individuals, families))
 	
 	def test_US17(self):
 		individuals = {
-			'@I1@': {'FAMS':'@F2@'},
-			'@I2@': {'FAMS':'@F2@'}
+			'@I1@': {'FAMS': ['@F1@', '@F2@']},
+			'@I2@': {'FAMS': ['@F2@']}
 		}
-		families = {'@F1@': {'HUSB': '@I1@', 'WIFE': '@I2@', 'CHIL': '@I2@'}}
+		families = {'@F1@': {'CHIL': ['@I2@']}}
 		self.assertTrue(US17_dont_marry_children('@I1@', individuals, families))
 	
 	def test_US18(self):
 		individuals = {
-			'@I1@': {'FAMC':'@F1@'},
-			'@I2@': {'FAMC':'@F1@'}
+			'@I1@': {'FAMC':'@F1@', 'FAMS': ['@F2@']},
+			'@I2@': {'FAMC':'@F1@', 'FAMS': ['@F2@']}
 		}
-		families = {'@F1@': {'HUSB': '@I1@', 'WIFE': '@I2@'}}
+		families = {'@F1@': {'CHIL': ['@I1@', '@I2@']}}
 		self.assertTrue(US18_siblings_should_not_marry('@I1@', individuals, families))
 	
 	def test_US30(self):
+		print("\nIf ONLY the word 'yes' prints below with no 'no's, US30 works:")
 		individuals = {
-			'@I1@': {'FAMS':'N/A', 'DEAT':'5 OCT 2016'},
-			'@I2@': {'FAMS':'N/A', 'DEAT': 'N/A'},
-			'@I3@': {'FAMS': '@I4@', 'DEAT': 'N/A'}
+			'@I1@': {'FAMS': 'N/A', 'DEAT': 'N/A', 'NAME': 'no'},
+			'@I2@': {'FAMS': ['@F1@'], 'DEAT': 'N/A', 'NAME': 'yes'},
+			'@I3@': {'FAMS': ['@F2@'], 'DEAT': '1 JAN 2020', 'NAME': 'no'}
 		}
-		self.assertTrue(US30_list_living_married(individuals))
+		self.assertEqual(US30_list_living_married(individuals), None)
 
 	def test_US01(self):
 		individuals= {'@I1@': {'BIRT' :'13 FEB 2022'}}
@@ -150,7 +156,7 @@ class Test(unittest.TestCase):
 		self.assertTrue(US09_born_after_parents_death('@I1@', individuals, families))
 
 	def test_US23(self):
-		print("If 'yes' is printed with no 'no's, US23 works:")
+		print("\nUS23: Should ONLY print @I1@, @I2@, and @I3@:")
 		individuals = {
 			'@I1@': {'NAME': 'yes', 'BIRT': '1 JAN 2000'},
 			'@I2@': {'NAME': 'yes', 'BIRT': '1 JAN 2000'},

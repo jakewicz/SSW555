@@ -3,21 +3,18 @@
 #US 16
 #Author JS
 #Prints all male last names
-def US16_get_last_names(individuals):
-    names = []
-    for indi in individuals:
-        if individuals[indi]['SEX'] == "M":
-            line = individuals[indi]["NAME"]
-            line = line.strip()
-            parse = line.split(' ')
-            firstName = parse[0]
-            lastName = parse[1]
-            lastName = lastName.replace("/", "", 2)
-            names.append(lastName)
-            print(lastName)
-    return names
+def US16_get_last_names(fam, individuals, families):
+    if families[fam]['CHIL'] == 'N/A':
+        return False
+    father_last_name = individuals[families[fam]['HUSB']]['NAME'].split()[1]
+    for child in families[fam]['CHIL']:
+        if individuals[child]['NAME'].split()[1] != father_last_name:
+            return True
+    return False
+
 #____________________________________________US30______________________________________________________________________________
 def US30_list_living_married(individuals):
+    print("\nUS30: All individuals who are married and alive:")
     for indi in individuals:
         if individuals[indi]['FAMS'] != 'N/A' and individuals[indi]['DEAT'] == 'N/A':
             print(individuals[indi]['NAME'])
@@ -47,14 +44,13 @@ def US17_dont_marry_children(indi, individuals, families):
 def US18_siblings_should_not_marry(indi, individuals, families):
     if individuals[indi]['FAMS'] == 'N/A':
         return False
-    for indi in individuals:
-        if individuals[indi]['FAMC'] not in families.keys():
-            return False
-        for child in families[individuals[indi]['FAMC']]['CHIL']:
-            if child == indi:
-                continue
-            if individuals[child]['FAMS'] != 'N/A':
-                for fam in individuals[child]['FAMS']:
-                    if fam in individuals[indi]['FAMS']:
-                        return True
+    if individuals[indi]['FAMC'] not in families.keys():
+        return False
+    for child in families[individuals[indi]['FAMC']]['CHIL']:
+        if child == indi:
+            continue
+        if individuals[child]['FAMS'] != 'N/A':
+            for fam in individuals[child]['FAMS']:
+                if fam in individuals[indi]['FAMS']:
+                    return True
     return False
