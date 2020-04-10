@@ -199,8 +199,8 @@
 2 DATE 7 SEP 2009
 1 FAMC @F15@
 0 @I93@ INDI
-1 NAME Mike /Najjar/
-2 GIVN Mike
+1 NAME gianna /Najjar/
+2 GIVN gianna
 1 SEX F
 1 BIRT
 2 DATE 7 SEP 2009
@@ -439,7 +439,7 @@
 2 _MARNM Chlus
 1 SEX F
 1 BIRT
-2 DATE 13 FEB 1999
+2 DATE 31 AUG 1999
 1 FAMC @30@
 0 @I102@ INDI
 1 NAME Father /Chlus/
