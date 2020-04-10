@@ -73,13 +73,11 @@ class Test(unittest.TestCase):
 		self.assertEqual(US36_recent_deaths(individuals), None)			
 		
 	def test_US16(self):
-		families = {'@F1@': {'HUSB': '@I1@', 'CHIL': ['@I2@', '@I3@', '@I4@']}}
 		individuals = {
-			'@I1@': {'NAME': 'Bob /Sagat/'},
 			'@I2@': {'SEX': 'M', 'NAME': 'Frank /Sagat/'},
 			'@I3@': {'SEX': 'M', 'NAME': 'Mike /Tyson/'},
 			'@I4@': {'SEX': 'F', 'NAME': 'Olivia /Tyson/'}}
-		self.assertTrue(US16_get_last_names('@F1@', individuals, families))
+		self.assertFalse(US16_get_last_names(individuals))
 	
 	def test_US17(self):
 		individuals = {
@@ -165,6 +163,27 @@ class Test(unittest.TestCase):
 		}
 		self.assertEqual(US23_unique_name_and_birthday(individuals), None)
 
+	def test_US25(self):
+		individuals = {
+			'@I1@': {'NAME': 'Jake', 'BIRT': '8 FEB 1999'},
+			'@I2@': {'NAME': 'Jake','BIRT': '8 FEB 1999'}
+		}
+		families = {
+			'@F1@': {'CHIL': ['@I1@', '@I2@']}
+		}
+		self.assertTrue(US25_unique_first_names(individuals,families))
+
+	def test_US42(self):
+		individuals = {
+			'@I1@': {'NAME': 'Jake', 'BIRT': '30 FEB 1999'}
+		}	
+		families = {
+			'@F1@': {'MARR': '40 APR 1970'}
+
+		}
+		self.assertFalse(US42_legit_dates('@I1@', individuals, families))
+
 # needs to be at the end, don't touch this
 if __name__ == '__main__':
 	unittest.main()
+
