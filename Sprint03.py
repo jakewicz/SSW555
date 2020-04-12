@@ -1,5 +1,4 @@
 from UsefulFunctions import *
-from collections import defaultdict
 from datetime import date, datetime
 
 #US 34

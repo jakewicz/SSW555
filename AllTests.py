@@ -118,6 +118,12 @@ def US38_test_upcoming_bdays(individuals):
 def US39_test_upcoming_anniversary(families, individuals):
     US39_upcoming_anniversary(families, individuals)
 
+def US33_test_list_orphans(families, individuals):
+    US33_list_orphans(families, individuals)
+
+def US37_test_recent_survivors(individuals):
+    US37_recent_survivors(individuals)
+
 #print out individual and family tables
 Parser.print_tables(individuals, families)
 
@@ -137,13 +143,11 @@ for indi in individuals:
     US09_test_born_after_parents_death(indi, individuals, families)
     US17_test_dont_marry_children(indi, individuals, families)
     US18_test_siblings_should_not_marry(indi, individuals, families)
-    
 
 for indi in families:
     US14_test_quin(indi, families, individuals)
     US15_test_child_max(indi, families)
     US21_test_gender(indi, families, individuals)
-    
 
 US29_the_deceased(individuals)
 US31_test_list_living_single(individuals)
@@ -157,3 +161,5 @@ US25_test_unique_first_names(individuals,families)
 US42_test_legit_dates(indi,individuals,families)
 US38_test_upcoming_bdays(individuals)
 US39_test_upcoming_anniversary(families, individuals)
+US33_test_list_orphans(families, individuals)
+US37_test_recent_survivors(individuals)

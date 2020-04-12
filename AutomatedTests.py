@@ -202,6 +202,27 @@ class Test(unittest.TestCase):
 		}
 		self.assertFalse(US42_legit_dates('@I1@', individuals, families))
 
+	def test_US37(self):
+		print("\nIf ONLY the word 'yes' prints below with no 'no's, US37 works:")
+		individuals = {
+			'@I1@' : {'NAME': 'no', 'BIRT': '13 FEB 1980', 'DEAT': '11 APR 2020', 'SPOUSE': '@I2@', 'CHILD': '@I3@'},
+			'@I2@' : {'NAME': 'yes', 'BIRT': '15 FEB 1981', 'DEAT': 'N/A'},
+			'@I3@' : {'NAME': 'yes', 'BIRT': '15 FEB 2008', 'DEAT': 'N/A'}
+		}
+		self.assertEqual(US37_recent_survivors(individuals), None)
+
+	def test_US33(self):
+		print("\nIf ONLY the word 'yes' prints below with no 'no's, US37 works:")
+		individuals = {
+			'@I1@' : {'NAME': 'no', 'BIRT': '13 FEB 1980', 'DEAT': '11 APR 2009', 'SPOUSE': '@I2@', 'CHILD': '@I3@'},
+			'@I2@' : {'NAME': 'yes', 'BIRT': '15 FEB 1981', 'DEAT': '11 APR 2009', 'SPOUSE': '@I1@', 'CHILD': '@I3@'},
+			'@I3@' : {'NAME': 'yes', 'BIRT': '15 FEB 2008', 'DEAT': 'N/A'}
+		}
+		families = {
+			'@F1@': {'CHIL': ['@I3@']}
+		}
+		self.assertEqual(US33_list_orphans(individuals, families), None)
+
 # needs to be at the end, don't touch this
 if __name__ == '__main__':
 	unittest.main()
