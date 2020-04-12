@@ -51,7 +51,8 @@ def US37_recent_survivors(individuals):
          if individuals[indi]['DEAT'] != 'N/A':
             diff = int((today - datetime.strptime(individuals[indi]['DEAT'], '%d %b %Y')).days)
             if diff <= 30:
-                print("the following are recent survivors of " + individuals[indi]['NAME'])
+                print('')
+                print("The following are recent survivors of " + individuals[indi]['NAME'])
                 if individuals[indi]['SPOUSE'] != 'N/A':
                     survivors_spouse = individuals[indi]['SPOUSE']
                     survivors_spouse = individuals[survivors_spouse]['NAME']
