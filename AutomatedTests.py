@@ -3,6 +3,7 @@ import Parser
 from Sprint01 import *
 from Sprint02 import *
 from Sprint03 import *
+from Sprint04 import *
 from Dan_Bianchini_User_Stories import *
 from Jacob_Senkewicz_User_Stories import *
 
@@ -142,7 +143,25 @@ class Test(unittest.TestCase):
 			'@I1@': {'NAME': 'young', 'SPOUSE': '@I2@', 'MARR_AGE': 22},
 			'@I2@': {'NAME': 'old', 'SPOUSE': '@I1@', 'MARR_AGE': 45}}
 		self.assertEqual(US34_age_difference('@I1@', individuals), 'ERROR: US34 large age difference in married couple')
+	def test_US38(self):
+		individuals = {
+			'@I1@': {'NAME': 'birthday', 'BIRT': '30 MAR 2000'},
+			'@I2@': {'NAME': 'bday', 'BIRT': '10 APR 2000'},
+			'@I3@': {'NAME': 'not soon', 'BIRT': '10 SEP 2012'},
+		}
+		self.assertEqual(US38_upcoming_bdays(individuals), ['@I1@', '@I2@'])
+	def test_US39(self):
+		individuals = {
+			'@I1@': {'NAME': 'wife'},
+			'@I2@': {'NAME': 'husband'},
+		}
+		families = {
+			'@F1@': {'HUSB': '@I2@', 'WIFE': '@I1@', 'MARR': '8 APR 2007'},
+			'@F2@': {'HUSB': '@I2@', 'WIFE': '@I1@', 'MARR': '8 OCT 2007'}
+		}
+		self.assertEqual(US39_upcoming_anniversary(families, individuals), ['@F1@'])
 
+		
 	# Dan sprint 4
 	def test_US09(self):
 		individuals ={

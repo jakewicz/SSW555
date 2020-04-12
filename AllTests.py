@@ -2,6 +2,7 @@
 from Sprint02 import *
 from Sprint01 import *
 from Sprint03 import *
+from Sprint04 import *
 from Dan_Bianchini_User_Stories import *
 from Jacob_Senkewicz_User_Stories import *
 import Parser
@@ -111,6 +112,12 @@ def US25_test_unique_first_names(individuals,families):
 def US42_test_legit_dates(indi,individuals,families):
     US42_legit_dates(indi,individuals,families)
 
+def US38_test_upcoming_bdays(individuals):
+    US38_upcoming_bdays(individuals)
+
+def US39_test_upcoming_anniversary(families, individuals):
+    US39_upcoming_anniversary(families, individuals)
+
 #print out individual and family tables
 Parser.print_tables(individuals, families)
 
@@ -148,3 +155,5 @@ US36_test_recent_deaths(individuals)
 US16_test_get_last_names(individuals)
 US25_test_unique_first_names(individuals,families)
 US42_test_legit_dates(indi,individuals,families)
+US38_test_upcoming_bdays(individuals)
+US39_test_upcoming_anniversary(families, individuals)
