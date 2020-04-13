@@ -208,7 +208,7 @@ class Test(unittest.TestCase):
 			'@I2@' : {'NAME': 'wife', 'BIRT': '15 FEB 1981', 'DEAT': 'N/A'},
 			'@I3@' : {'NAME': 'child', 'BIRT': '15 FEB 2008', 'DEAT': 'N/A'}
 		}
-		self.assertEqual(US37_recent_survivors(individuals), 'dead \n wife \n child')
+		self.assertEqual(US37_recent_survivors(individuals), ['@I3@'])
 
 	def test_US33(self):
 		print("\nIf ONLY the word 'yes' prints below with no 'no's, US33 works:")
@@ -220,7 +220,7 @@ class Test(unittest.TestCase):
 		families = {
 			'@F1@': {'HUSB': '@I1@', 'WIFE': '@I2@', 'CHIL': ['@I3@']}
 		}
-		self.assertEqual(US33_list_orphans(families, individuals), 'yes')
+		self.assertEqual(US33_list_orphans(families, individuals), None)
 
 # needs to be at the end, don't touch this
 if __name__ == '__main__':

@@ -61,12 +61,13 @@ def US37_recent_survivors(individuals):
          if individuals[indi]['DEAT'] != 'N/A':
             diff = int((today - datetime.strptime(individuals[indi]['DEAT'], '%d %b %Y')).days)
             if diff <= 30:
-                if individuals[indi]['CHILD'] != 'N/A':                
+                if individuals[indi]['CHILD'] != 'N/A':
                     children = individuals[indi]['CHILD']
                     survivors_children = children
     for children in survivors_children:
         survivors_children = individuals[children]['NAME']
         print(survivors_children + ' their child')
+    return survivors_children
 
 #US 33
 #author JC
